@@ -11,6 +11,7 @@ const images1 = ref([
 // 轮播大图数组
 const carouselItems = ref([
     {
+
         title: 'Title 1',
         description: 'Description for the first slide.',
         image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/c5/0f/9abae323494fb277eb81b38e3f88/5835432d-16b3-402e-8874-823afec2b206.png'
@@ -32,15 +33,31 @@ const carouselItems = ref([
     }
 ]);
 
+//新闻公告
+const newsList = ref([
+    {id: 1, date: '2024-06-15', title: '新闻标题1'},
+    {id: 2, date: '2024-06-14', title: '新闻标题2'},
+    {id: 3, date: '2024-06-13', title: '新闻标题3'},
+    {id: 4, date: '2024-06-15', title: '新闻标题4'},
+    {id: 5, date: '2024-06-14', title: '新闻标题5'},
+    {id: 6, date: '2024-06-13', title: '新闻标题6'},
+    {id: 7, date: '2024-06-15', title: '新闻标题7'},
+    {id: 8, date: '2024-06-14', title: '新闻标题8'},
+    {id: 9, date: '2024-06-13', title: '新闻标题9'},
+    {id: 10, date: '2024-06-15', title: '新闻标题10'},
+    {id: 11, date: '2024-06-14', title: '新闻标题12'},
+    {id: 12, date: '2024-06-13', title: '新闻标题13'}
+])
+
+
 const activeName = ref('1')
 
 </script>
 
 <template>
-    <!-- <el-container style="height: 100vh;">
-        <el-header style="height: 450px;padding: 0;"> -->
+    <!-- <el-container style="height: 100vh;">-->
     <el-container>
-        <el-header>
+        <el-header style="height: 450px;padding: 0;">
             <!-- Carousel in Header -->
             <div class="carousel-container">
                 <el-carousel height="450px" :autoplay="true">
@@ -62,83 +79,58 @@ const activeName = ref('1')
         </el-header>
         <el-container class="main-container">
             <el-main class="block block-1">
-                <el-row class="block-row">
+                <!--名师荟萃-->
+                <el-row :gutter="70">
                     <!-- 标题栏-->
                     <el-col>
                         <div>
                             <el-space class="aside-header" alignment="center" style="width: 100%;">
                                 <el-text class="aside-title">
-                                    办学优势
+                                    名师荟萃
                                 </el-text>
                                 <el-button type="text" class="more-button">更多 +</el-button>
                             </el-space>
                         </div>
                     </el-col>
-                    <el-col>
-                        <div class="demo-collapse">
-                            <el-collapse v-model="activeName" accordion>
-                                <el-collapse-item title="简介" name="1">
-                                    <div class="content">
-                                        福州大学至诚学院是经国家教育部批准，于2003年7月,由国家“双一流”建设高校、国家“211工程”重点建设大学，福建省人民政府与国家教育部共建高校、福建省人民政府与国家国防科技工业局
-                                        共建高校福州大学为主体举办，并按新机制、新模式运作，实施全日制本科学历教育的高等学校。
-                                    </div>
-                                    <div class="content">
-                                        学院牢牢把握社会主义办学方向，遵循“明德博学，臻于至善”的院训精神，围绕应用型大学的办学定位，注重培育学生的科学精神与人文素养，培养德智体美劳全面发展的社会主义建设者和接班人。
-                                        坚持以提高服务区域、行业需求能力为引领，学院从师资队伍、人才培养、平台搭建三方面着力构建了“三位一体”的应用型大学建设基础，努力建设以工为主、有特色、有影响的高水平应用型大学，
-                                        打造福建省工科人才培养的摇篮。
-                                    </div>
-                                </el-collapse-item>
-                                <el-collapse-item title="教学单位" name="2">
-                                    <div class="content">
-                                        学院牢牢把握社会主义办学方向，遵循“明德博学，臻于至善”的院训精神，围绕应用型大学的办学定位，注重培育学生的科学精神与人文素养，
-                                        培养德智体美劳全面发展的社会主义建设者和接班人。坚持以提高服务区域、行业需求能力为引领，学院从师资队伍、人才培养、
-                                        平台搭建三方面着力构建了“三位一体”的应用型大学建设基础，努力建设以工为主、有特色、有影响的高水平应用型大学，打造福建省工科人才培养的摇篮。
-                                    </div>
-                                    <div class="content">
-                                        学院现有17个教学单位、38个本科专业，学科专业覆盖经济社会发展主导产业、战略性新兴产业和传统产业，已发展成为一所以工为主，理、工、经、管、文、艺等多学科协调发展的应用型综合性大学。
-                                        在校生规模近14000人。
-                                    </div>
-                                </el-collapse-item>
-                                <el-collapse-item title="Efficiency" name="3">
-                                    <div class="content">
-                                        Simplify the process: keep operating process simple and intuitive;
-                                    </div>
-                                    <div class="content">
-                                        Definite and clear: enunciate your intentions clearly so that the
-                                        users can quickly understand and make decisions;
-                                    </div>
-                                    <div class="content">
-                                        Easy to identify: the interface should be straightforward, which helps
-                                        the users to identify and frees them from memorizing and recalling.
-                                    </div>
-                                </el-collapse-item>
-                                <el-collapse-item title="Controllability" name="4">
-                                    <div class="content">
-                                        Decision making: giving advices about operations is acceptable, but do
-                                        not make decisions for the users;
-                                    </div>
-                                    <div class="content">
-                                        Controlled consequences: users should be granted the freedom to
-                                        operate, including canceling, aborting or terminating current
-                                        operation.
-                                    </div>
-                                </el-collapse-item>
-                                <el-collapse-item title="Controllability" name="5">
-                                    <div class="content">
-                                        Decision making: giving advices about operations is acceptable, but do
-                                        not make decisions for the users;
-                                    </div>
-                                    <div class="content">
-                                        Controlled consequences: users should be granted the freedom to
-                                        operate, including canceling, aborting or terminating current
-                                        operation.
-                                    </div>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
+                    <el-col :span="12">
+                        <el-card style="max-width: 100%">
+                            <template #header>Yummy hamburger</template>
+                            <img
+                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                                    style="width: 100%"
+                                    alt=""/>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-card style="max-width: 100%">
+                            <template #header>Yummy hamburger</template>
+                            <img
+                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                                    style="width: 100%"
+                                    alt=""/>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-card style="max-width: 100%">
+                            <template #header>Yummy hamburger</template>
+                            <img
+                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                                    style="width: 100%"
+                                    alt=""/>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-card style="max-width: 100%">
+                            <template #header>Yummy hamburger</template>
+                            <img
+                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                                    style="width: 100%"
+                                    alt=""/>
+                        </el-card>
                     </el-col>
                     <!-- Carousel in Main -->
                 </el-row>
+                <!-- 特色课程-->
                 <el-row :gutter="20">
                     <!-- 标题栏-->
                     <el-col>
@@ -211,58 +203,26 @@ const activeName = ref('1')
             </el-main>
             <el-aside class="block block-2">
                 <!-- 标题栏-->
-                <div>
-                    <el-space class="aside-header" alignment="center" style="width: 100%;">
-                        <el-text class="aside-title">
-                            新闻公告
-                        </el-text>
-                        <el-button type="text" class="more-button">更多 +</el-button>
-                    </el-space>
-                </div>
-                <!-- Carousel in Aside -->
-                <div class="carousel-container">
-                    <el-carousel
-                            height="200px"
-                            direction="vertical"
-                            motion-blur
-                            :autoplay="false"
-                    >
-                        <el-carousel-item v-for="item in 4" :key="item">
-                            <h3 text="2xl" justify="center">{{ item }}</h3>
-                        </el-carousel-item>
-                    </el-carousel>
-                </div>
-            </el-aside>
-        </el-container>
-        <el-container class="main-container">
-            <el-row class="block block-1">
-                <!-- 标题栏-->
                 <el-col>
                     <div>
                         <el-space class="aside-header" alignment="center" style="width: 100%;">
                             <el-text class="aside-title">
-                                名师荟萃
+                                新闻公告
                             </el-text>
                             <el-button type="text" class="more-button">更多 +</el-button>
                         </el-space>
                     </div>
-                </el-col>
-                <el-col>
-                    <div class="carousel-container">
-                        <el-carousel
-                                height="400px"
-                                direction="vertical"
-                                type="card"
-                                :autoplay="false"
-                        >
-                            <el-carousel-item v-for="item in 4" :key="item">
-                                <h3 text="2xl" justify="center">{{ item }}</h3>
-                            </el-carousel-item>
-                        </el-carousel>
+                    <!-- 新闻公告列表 -->
+                    <div class="news-list">
+                        <div class="news-item" v-for="news in newsList" :key="news.id">
+                            <span class="news-time">{{ news.date }}</span>
+                            <span class="news-title">{{ news.title }}</span>
+                        </div>
                     </div>
                 </el-col>
-                <!-- Carousel in Main -->
-            </el-row>
+            </el-aside>
+        </el-container>
+        <el-container class="main-container">
             <el-row class="block block-1">
                 <!-- 标题栏-->
                 <el-col>
@@ -302,6 +262,9 @@ const activeName = ref('1')
     .main-container {
         margin: 30px 50px; /* 大屏幕外边距 */
     }
+    .aside-col {
+        margin-top: 50px; /* 桌面设备上的间距 */
+    }
 }
 
 /* 对于中等屏幕 */
@@ -309,12 +272,18 @@ const activeName = ref('1')
     .main-container {
         margin: 20px 20px; /* 中等屏幕外边距 */
     }
+    .aside-col {
+        margin-top: 60px; /* 桌面设备上的间距 */
+    }
 }
 
 /* 对于较小屏幕 */
 @media (max-width: 767px) {
     .main-container {
         margin: 0 10px; /* 小屏幕外边距 */
+    }
+    .aside-col {
+        margin-top: 50px; /* 桌面设备上的间距 */
     }
 }
 
@@ -338,17 +307,18 @@ const activeName = ref('1')
     padding-bottom: 100px;
 }
 
+//新闻公告栏样式
 .aside-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .aside-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -356,7 +326,52 @@ const activeName = ref('1')
 }
 
 .more-button {
-    // background-color: #2980B9; /* 按钮背景颜色 */ color: #99a9bf; /* 按钮文字颜色 */ border: none; /* 去掉按钮边框 */ padding: 5px 10px; /* 按钮内边距 */ cursor: pointer; /* 鼠标悬停时变成手型 */
+    //background-color: #409EFF; /* 按钮背景颜色 */
+    color: #2980B9; /* 按钮文字颜色 */
+    border: none; /* 去掉按钮边框 */
+    padding: 5px 10px; /* 按钮内边距 */
+    cursor: pointer; /* 鼠标悬停时变成手型 */
+}
+
+.news-list {
+    max-height: 300px; /* 根据需要调整高度 */
+    overflow-y: auto; /* 垂直滚动 */
+}
+
+.news-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0; /* 底部边框 */
+    transition: background-color 0.3s, color 0.3s; /* 动画效果 */
+}
+
+.news-item:last-child {
+    border-bottom: none; /* 最后一个项目无边框 */
+}
+
+.news-item:hover {
+    background-color: #e0f7fa; /* 悬停背景颜色 */
+    color: #00796b; /* 悬停字体颜色 */
+}
+
+.news-time {
+    font-size: 12px;
+    color: #888; /* 时间颜色 */
+}
+
+.news-title {
+    font-size: 16px;
+    color: #333; /* 标题颜色 */
+    margin-left: 10px;
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; /* 省略过长文本 */
+}
+.aside-col{
+    margin-top: 190px;
 }
 
 .carousel-container {
@@ -372,11 +387,13 @@ const activeName = ref('1')
     display: flex;
     overflow: hidden;
 }
-.include{
+
+
+.include {
     flex: 1;
-    background: linear-gradient(264deg, transparent 80px, #0768B4 80px, #2980B9 calc(100% - 80px)); 
-    
+    background: linear-gradient(264deg, transparent 80px, #0768B4 80px, #2980B9 calc(100% - 80px));
 }
+
 .text-section {
     /* 占据整体的一部分，比例可以通过调整这里的 flex 属性来控制 */
     padding: 130px;

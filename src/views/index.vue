@@ -44,9 +44,9 @@ onMounted(() => {
                     />
                 </el-col>
             </el-row>
-
+        </el-header>
             <!-- Menu -->
-            <el-row class="memu">
+        <el-row class="memu">
                 <el-col :span="24">
                     <el-menu
                             :default-active="activeIndex"
@@ -88,8 +88,6 @@ onMounted(() => {
                     </el-menu>
                 </el-col>
             </el-row>
-        </el-header>
-
         <!-- Main -->
         <el-main class="main-content" :style="{ height: mainHeight + 'px' }">
         <!-- <el-main class="main-content"> -->
