@@ -3,7 +3,6 @@
 
 <template>
   <!-- 专业设置 -->
-
   <el-tag type="primary" effect="dark">计算机工程系</el-tag>
   <div class="list">
     <li><a href="">数据科学与大数据技术专业</a></li>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
 import {useRouter} from "vue-router";
 
 const activeIndex = ref('/index')
@@ -8,6 +8,21 @@ const handleSelect = (key: string) => {
 }
 
 const router = useRouter()
+
+const mainHeight = ref(''); // el-main 初始高度，可以根据需要动态计算  
+  
+// 动态设置 mainHeight  
+onMounted(() => {  
+    // 假设 header 的高度是固定的 60px，并且我们想要 main 占据剩余的高度  
+    const viewportHeight = window.innerHeight;  
+    const headerHeight = 150; // 假设的 header 高度  
+    mainHeight.value = `${viewportHeight - headerHeight}px`;  
+
+    console.log(viewportHeight);
+    console.log(mainHeight.value);
+    
+});  
+
 </script>
 
 <template>
@@ -30,45 +45,54 @@ const router = useRouter()
                 </el-col>
             </el-row>
 
-
+            <!-- Menu -->
+            <el-row class="memu">
+                <el-col :span="24">
+                    <el-menu
+                            :default-active="activeIndex"
+                            class="el-menu-demo"
+                            mode="horizontal"
+                            text-color="#287FB9"
+                            background-color="#fff"
+                            active-text-color="#ffd04b"
+                            @select="handleSelect"
+                    >
+                        <el-menu-item index="/index/info">首页</el-menu-item>
+                        <el-sub-menu index="/department">
+                            <template #title>系部概况</template>
+                            <el-menu-item index="/department/dept/introduction" exact>本系简介</el-menu-item>
+                            <el-menu-item index="/department/dept/leadership" exact>领导简介</el-menu-item>
+                            <el-menu-item index="/department/dept/profession" exact>专业设置</el-menu-item>
+                            <el-menu-item index="/department/dept/achievement" exact>十年成果展</el-menu-item>
+                        </el-sub-menu>
+                        <el-sub-menu index="/news">
+                            <template #title>新闻中心</template>
+                            <el-menu-item index="/news/n/announcements" exact>通知公告</el-menu-item>
+                            <el-menu-item index="/news/n/latestNews" exact>最新动态</el-menu-item>
+                        </el-sub-menu>
+                        <el-sub-menu index="/party_building">
+                            <template #title>党建专栏</template>
+                            <el-menu-item index="/party_building/pb/rules" exact>党规党纪</el-menu-item>
+                            <el-menu-item index="/party_building/pb/pbAnnouncements" exact>通知公告</el-menu-item>
+                            <el-menu-item index="/party_building/pb/honor" exact>荣誉展示</el-menu-item>
+                            <el-menu-item index="/party_building/pb/events" exact>主题党日活动</el-menu-item>
+                            <el-menu-item index="/party_building/pb/example" exact>榜样标兵</el-menu-item>
+                            <el-menu-item index="/party_building/pb/study" exact>二十大专题学习</el-menu-item>
+                        </el-sub-menu>
+                        <el-menu-item index="5">学科建设</el-menu-item>
+                        <el-menu-item index="6">教务管理</el-menu-item>
+                        <el-menu-item index="7">规章制度</el-menu-item>
+                        <el-menu-item index="8">学生工作</el-menu-item>
+                        <el-menu-item index="9">国际交流</el-menu-item>
+                        <el-menu-item index="10">办事指南</el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
         </el-header>
-        <!-- Menu -->
-        <el-row>
-            <el-col :span="24">
-                <el-menu
-                        :default-active="activeIndex"
-                        class="el-menu-demo"
-                        mode="horizontal"
-                        text-color="#287FB9"
-                        background-color="#fff"
-                        active-text-color="#ffd04b"
-                        @select="handleSelect"
-                >
-                    <el-menu-item index="/index/info">首页</el-menu-item>
-                    <el-sub-menu index="/department">
-                        <template #title>系部概况</template>
-                        <el-menu-item index="/department/dept/introduction" exact>本系简介</el-menu-item>
-                        <el-menu-item index="/department/dept/leadership" exact>领导简介</el-menu-item>
-                        <el-menu-item index="/department/dept/profession" exact>专业设置</el-menu-item>
-                        <el-menu-item index="/department/dept/achievement" exact>十年成果展</el-menu-item>
-                    </el-sub-menu>
-                    <el-sub-menu index="/news">
-                        <template #title>新闻中心</template>
-                        <el-menu-item index="/news/announcements" exact>通知公告</el-menu-item>
-                        <el-menu-item index="/news/latestNews" exact>最新动态</el-menu-item>
-                    </el-sub-menu>
-                    <el-menu-item index="4">党建专栏</el-menu-item>
-                    <el-menu-item index="5">学科建设</el-menu-item>
-                    <el-menu-item index="6">教务管理</el-menu-item>
-                    <el-menu-item index="7">规章制度</el-menu-item>
-                    <el-menu-item index="8">学生工作</el-menu-item>
-                    <el-menu-item index="9">国际交流</el-menu-item>
-                    <el-menu-item index="10">办事指南</el-menu-item>
-                </el-menu>
-            </el-col>
-        </el-row>
+
         <!-- Main -->
-        <el-main class="main-content">
+        <el-main class="main-content" :style="{ height: mainHeight + 'px' }">
+        <!-- <el-main class="main-content"> -->
             <!-- 路由放置位置-->
             <router-view></router-view>
         </el-main>
@@ -102,12 +126,19 @@ const router = useRouter()
     overflow-y: auto;
 }
 
+.el-container {    
+  height: 100%; /* 继承外部容器的高度 */    
+  display: flex;    
+  flex-direction: column;    
+  /* 注意：如果el-container本身不应该有滚动条，则不需要添加overflow样式 */  
+} 
+
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
     background: linear-gradient(to right, #2980B9, #0768B4);
-     padding: 20px;
+    padding: 20px;
     height: 150px;
 }
 
@@ -206,4 +237,5 @@ const router = useRouter()
 .el-main {
     padding: 0px;
 }
+
 </style>

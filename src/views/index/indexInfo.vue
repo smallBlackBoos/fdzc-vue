@@ -37,8 +37,10 @@ const activeName = ref('1')
 </script>
 
 <template>
-    <el-container style="height: 100vh;">
-        <el-header style="height: 450px;padding: 0;">
+    <!-- <el-container style="height: 100vh;">
+        <el-header style="height: 450px;padding: 0;"> -->
+    <el-container>
+        <el-header>
             <!-- Carousel in Header -->
             <div class="carousel-container">
                 <el-carousel height="450px" :autoplay="true">
@@ -354,9 +356,8 @@ const activeName = ref('1')
 }
 
 .more-button {
-    //background-color: #2980B9; /* 按钮背景颜色 */ color: #99a9bf; /* 按钮文字颜色 */ border: none; /* 去掉按钮边框 */ padding: 5px 10px; /* 按钮内边距 */ cursor: pointer; /* 鼠标悬停时变成手型 */
+    // background-color: #2980B9; /* 按钮背景颜色 */ color: #99a9bf; /* 按钮文字颜色 */ border: none; /* 去掉按钮边框 */ padding: 5px 10px; /* 按钮内边距 */ cursor: pointer; /* 鼠标悬停时变成手型 */
 }
-
 
 .carousel-container {
     position: relative;
@@ -373,7 +374,7 @@ const activeName = ref('1')
 }
 .include{
     flex: 1;
-    background: linear-gradient(to right, #2980B9, #0768B4);
+    background: linear-gradient(264deg, transparent 80px, #0768B4 80px, #2980B9 calc(100% - 80px)); 
     
 }
 .text-section {
@@ -404,7 +405,7 @@ const activeName = ref('1')
 .image-section {
     flex: 5;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .include {
@@ -412,11 +413,11 @@ const activeName = ref('1')
 }
 
 .carousel-image {
-    width: calc(100% + 30px); /* Adjust to cover the overflow */
+    width: calc(100% + 80px); /* Adjust to cover the overflow */
     height: 100%;
     object-fit: cover;
     position: absolute;
-    left: -20px; /* Center image */
+    left: -73px; /* Center image */
     top: 0;
     z-index: 1;
     transition: transform 0.5s ease-in-out; /* Smooth scale transition */
@@ -439,6 +440,10 @@ const activeName = ref('1')
 .content {
     font-size: 14px;
     color: #333; /* Set the color of the content */
+}
+
+.el-main {
+    height: 2000px;
 }
 
 
