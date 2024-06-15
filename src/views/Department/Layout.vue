@@ -149,7 +149,7 @@ h2 {
   height: 62px;
   padding-right: 50px;
   line-height: 62px;
-  background: linear-gradient(61deg, transparent 29px, #2980B9 29px, #0768B4 calc(100% - 29px)); 
+  background: linear-gradient(61deg, transparent 29px, #2980B9 29px, #0768B4 calc(100% - 29px));
   background-size: 100% 100%;
   background-repeat: no-repeat;
   color: white;

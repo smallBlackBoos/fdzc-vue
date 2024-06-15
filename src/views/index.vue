@@ -29,49 +29,49 @@ const router = useRouter()
                     />
                 </el-col>
             </el-row>
-            <!-- Menu -->
-            <el-row class="memu">
-                <el-col :span="24">
-                    <el-menu
-                            :default-active="activeIndex"
-                            class="el-menu-demo"
-                            mode="horizontal"
-                            text-color="#287FB9"
-                            background-color="#fff"
-                            active-text-color="#ffd04b"
-                            @select="handleSelect"
-                    >
-                        <el-menu-item index="/index/info">首页</el-menu-item>
-                        <el-sub-menu index="/department">
-                            <template #title>系部概况</template>
-                            <el-menu-item index="/department/dept/introduction" exact>本系简介</el-menu-item>
-                            <el-menu-item index="/department/dept/leadership" exact>领导简介</el-menu-item>
-                            <el-menu-item index="/department/dept/profession" exact>专业设置</el-menu-item>
-                            <el-menu-item index="/department/dept/achievement" exact>十年成果展</el-menu-item>
-                        </el-sub-menu>
-                        <el-sub-menu index="/news">
-                            <template #title>新闻中心</template>
-                            <el-menu-item index="/news/announcements" exact>通知公告</el-menu-item>
-                            <el-menu-item index="/news/latestNews" exact>最新动态</el-menu-item>
-                        </el-sub-menu>
-                        <el-menu-item index="4">党建专栏</el-menu-item>
-                        <el-menu-item index="5">学科建设</el-menu-item>
-                        <el-menu-item index="6">教务管理</el-menu-item>
-                        <el-menu-item index="7">规章制度</el-menu-item>
-                        <el-menu-item index="8">学生工作</el-menu-item>
-                        <el-menu-item index="9">国际交流</el-menu-item>
-                        <el-menu-item index="10">办事指南</el-menu-item>
-                    </el-menu>
-                </el-col>
-            </el-row>
-        </el-header>
 
+
+        </el-header>
+        <!-- Menu -->
+        <el-row>
+            <el-col :span="24">
+                <el-menu
+                        :default-active="activeIndex"
+                        class="el-menu-demo"
+                        mode="horizontal"
+                        text-color="#287FB9"
+                        background-color="#fff"
+                        active-text-color="#ffd04b"
+                        @select="handleSelect"
+                >
+                    <el-menu-item index="/index/info">首页</el-menu-item>
+                    <el-sub-menu index="/department">
+                        <template #title>系部概况</template>
+                        <el-menu-item index="/department/dept/introduction" exact>本系简介</el-menu-item>
+                        <el-menu-item index="/department/dept/leadership" exact>领导简介</el-menu-item>
+                        <el-menu-item index="/department/dept/profession" exact>专业设置</el-menu-item>
+                        <el-menu-item index="/department/dept/achievement" exact>十年成果展</el-menu-item>
+                    </el-sub-menu>
+                    <el-sub-menu index="/news">
+                        <template #title>新闻中心</template>
+                        <el-menu-item index="/news/announcements" exact>通知公告</el-menu-item>
+                        <el-menu-item index="/news/latestNews" exact>最新动态</el-menu-item>
+                    </el-sub-menu>
+                    <el-menu-item index="4">党建专栏</el-menu-item>
+                    <el-menu-item index="5">学科建设</el-menu-item>
+                    <el-menu-item index="6">教务管理</el-menu-item>
+                    <el-menu-item index="7">规章制度</el-menu-item>
+                    <el-menu-item index="8">学生工作</el-menu-item>
+                    <el-menu-item index="9">国际交流</el-menu-item>
+                    <el-menu-item index="10">办事指南</el-menu-item>
+                </el-menu>
+            </el-col>
+        </el-row>
         <!-- Main -->
         <el-main class="main-content">
             <!-- 路由放置位置-->
             <router-view></router-view>
         </el-main>
-
         <!--Footer-->
         <el-footer class="footer">
             <el-row class="footer-row">
@@ -107,8 +107,8 @@ const router = useRouter()
     top: 0;
     z-index: 1000;
     background: linear-gradient(to right, #2980B9, #0768B4);
-    // padding: 20px;
-    height: 170px;
+     padding: 20px;
+    height: 150px;
 }
 
 .el-header {
@@ -151,7 +151,7 @@ const router = useRouter()
     .el-sub-menu {
         height: 50px;
     }
-    
+
     .el-menu-item {
         height: 50px;
     }
@@ -161,7 +161,7 @@ const router = useRouter()
     // background: linear-gradient(to right, #2980B9, #0768B4);
     align-items: center;
     justify-content: center;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .carousel-container {
@@ -185,9 +185,12 @@ const router = useRouter()
 }
 
 .main-content {
-    flex: 1;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
+    height: 100%;
 }
 
 .el-footer {
