@@ -1,13 +1,9 @@
 <script lang="ts" setup>
 import {Bell, ElementPlus} from '@element-plus/icons-vue'
 import {ref} from "vue";
+import {id} from "element-plus/es/locale";
+import {useRouter} from "vue-router";
 
-const images1 = ref([
-    'https://cs.fdzcxy.edu.cn/_upload/article/images/c5/0f/9abae323494fb277eb81b38e3f88/5835432d-16b3-402e-8874-823afec2b206.png',
-    'https://cs.fdzcxy.edu.cn/_upload/article/images/a9/f8/02e153d64bde891f705028b437e2/dce87790-2e0e-4501-8042-f9892f0ab591.png',
-    'https://cs.fdzcxy.edu.cn/_upload/article/images/19/03/23c96b554969806b8533efeb5f15/c0e01a66-c838-4c29-8452-8c2ae53aa3f6.jpg',
-    'https://cs.fdzcxy.edu.cn/_upload/article/images/13/1c/1fe64a664f11b2a7929da4900e25/77bec478-c37d-464d-869e-402d8575eb5f.png'
-]);
 // 轮播大图数组
 const carouselItems = ref([
     {
@@ -50,8 +46,152 @@ const newsList = ref([
 ])
 
 
-const activeName = ref('1')
+//名师荟萃name
+const teacherData = ref([
+    {
+        id: 1,
+        article_id: 101,
+        type: '名师荟萃',
+        title: 'Teacher Name 1',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'Teacher Info 1 Teacher Info 1Teacher Info 1Teacher Info Teacher Info 1Teacher InfTeacher Info 1Teacher Info 1Teacher Info 1Teacher Info 1o 1Teacher Info 11Teacher Info 1Teacher Info 1Teacher Info 1Teacher Info 1',
+        create_time: '2024-05-11',
+        link: 'https://example.com/1'
+    },
+    {
+        id: 2,
+        article_id: 102,
+        type: '名师荟萃',
+        title: 'Teacher Name 2',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2',
+        create_time: '2024-05-12',
+        link: 'https://example.com/2'
+    },
+    {
+        id: 3,
+        article_id: 103,
+        type: '名师荟萃',
+        title: 'Teacher Name 3',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3',
+        create_time: '2024-05-13',
+        link: 'https://example.com/3'
+    },
+    {
+        id: 4,
+        article_id: 104,
+        type: '名师荟萃',
+        title: 'Teacher Name 4',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4',
+        create_time: '2024-05-14',
+        link: 'https://example.com/4'
+    }
+]);
 
+
+//办学成果
+const ResultData = ref([
+    {
+        id: 1,
+        article_id: 105,
+        type: '办学成果',
+        title: 'ResultData 1',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-11',
+        link: 'https://example.com/1'
+    },
+    {
+        id: 2,
+        article_id: 106,
+        type: '办学成果',
+        title: 'ResultData 2',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-12',
+        link: 'https://example.com/2'
+    },
+    {
+        id: 3,
+        article_id: 107,
+        type: '办学成果',
+        title: 'ResultData 3',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'TResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-13',
+        link: 'https://example.com/3'
+    },
+    {
+        id: 4,
+        article_id: 108,
+        type: '办学成果',
+        title: 'ResultData 4',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-14',
+        link: 'https://example.com/4'
+    },
+    {
+        id: 5,
+        article_id: 108,
+        type: '办学成果',
+        title: 'ResultData 4',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-14',
+        link: 'https://example.com/4'
+    },
+    {
+        id: 6,
+        article_id: 108,
+        type: '办学成果',
+        title: 'ResultData 4',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-14',
+        link: 'https://example.com/4'
+    },
+    {
+        id: 7,
+        article_id: 108,
+        type: '办学成果',
+        title: 'ResultData 4',
+        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
+        create_time: '2024-05-14',
+        link: 'https://example.com/4'
+    }
+]);
+//简介省略过多的字
+const truncateDescription = (text, maxLength) => {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength - 3) + '...';
+    } else {
+        return text;
+    }
+};
+const router = useRouter();
+const handleClick = (link) => {
+    router.push(link);
+};
+
+//每行两个
+const getRows = (data) => {
+    const rows = [];
+    for (let i = 0; i < data.length; i += 2) {
+        rows.push(data.slice(i, i + 2));
+    }
+    return rows;
+};
+//一行走马灯卡片
+const isDarkBackground = ref(false);
+
+const handleCarouselChange = (index) => {
+    console.log('Carousel index changed to:', index);
+    isDarkBackground.value = !isDarkBackground.value; // 切换背景颜色状态
+};
 </script>
 
 <template>
@@ -80,8 +220,7 @@ const activeName = ref('1')
         <el-container class="main-container">
             <el-main class="block block-1">
                 <!--名师荟萃-->
-                <el-row :gutter="70">
-                    <!-- 标题栏-->
+                <el-row>
                     <el-col>
                         <div>
                             <el-space class="aside-header" alignment="center" style="width: 100%;">
@@ -92,113 +231,28 @@ const activeName = ref('1')
                             </el-space>
                         </div>
                     </el-col>
-                    <el-col :span="12">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <!-- Carousel in Main -->
-                </el-row>
-                <!-- 特色课程-->
-                <el-row :gutter="20">
-                    <!-- 标题栏-->
                     <el-col>
-                        <div>
-                            <el-space class="aside-header" alignment="center" style="width: 100%;">
-                                <el-text class="aside-title">
-                                    特色课程
-                                </el-text>
-                                <el-button type="text" class="more-button">更多 +</el-button>
-                            </el-space>
+                        <div class="card-container">
+                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows(teacherData)" :key="rowIndex"
+                                    style="margin-top: 30px;">
+                                <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
+                                    <el-card class="profile-card" @click="() => handleClick(teacher.link)">
+                                        <div class="profile-content">
+                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+                                            <div class="profile-text">
+                                                <div class="card-name">
+                                                    <span>{{ teacher.title }}</span>
+                                                </div>
+                                                <div class="card-info">
+                                                    <span>{{ truncateDescription(teacher.description, 200) }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </el-card>
+                                </el-col>
+                            </el-row>
                         </div>
                     </el-col>
-                    <el-col :span="8"> <!-- Each column spans 8/24 of the row (1/3) -->
-                        <el-card style="max-width: 100%"> <!-- Max-width to fit within the column -->
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-
-                    <el-col :span="8">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card style="max-width: 100%">
-                            <template #header>Yummy hamburger</template>
-                            <img
-                                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                    style="width: 100%"
-                                    alt=""/>
-                        </el-card>
-                    </el-col>
-                    <!-- Carousel in Main -->
                 </el-row>
             </el-main>
             <el-aside class="block block-2">
@@ -216,15 +270,49 @@ const activeName = ref('1')
                     <div class="news-list">
                         <div class="news-item" v-for="news in newsList" :key="news.id">
                             <span class="news-time">{{ news.date }}</span>
-                            <span class="news-title">{{ news.title }}</span>
+                            <span class="news-title">{{ truncateDescription(news.title, 10) }}</span>
                         </div>
                     </div>
                 </el-col>
             </el-aside>
         </el-container>
-        <el-container class="main-container">
+        <el-container class="main-container" style="margin-top: -30px">
             <el-row class="block block-1">
-                <!-- 标题栏-->
+                <el-col>
+                    <div>
+                        <el-space class="aside-header" alignment="center" style="width: 100%;">
+                            <el-text class="aside-title">
+                                特色课程
+                            </el-text>
+                            <el-button type="text" class="more-button">更多 +</el-button>
+                        </el-space>
+                    </div>
+                </el-col>
+                <el-col style="margin-top: 30px">
+                    <el-carousel :interval="4000" type="card" height="300px">
+                        <el-carousel-item v-for="(teacher, index) in teacherData" :key="index">
+                            <div class="card-container">
+                                <el-card class="profile-card" @click="() => handleClick(teacher.link)" shadow="hover">
+                                    <div class="profile-content">
+                                        <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+                                        <div class="profile-text">
+                                            <div class="card-name">
+                                                <span>{{ teacher.title }}</span>
+                                            </div>
+                                            <div class="card-info">
+                                                <span>{{ truncateDescription(teacher.description, 100) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-card>
+                            </div>
+                        </el-carousel-item>
+                    </el-carousel>
+                </el-col>
+            </el-row>
+        </el-container>
+        <el-container class="main-container" style="margin-top: -100px">
+            <el-row class="block block-1">
                 <el-col>
                     <div>
                         <el-space class="aside-header" alignment="center" style="width: 100%;">
@@ -235,24 +323,32 @@ const activeName = ref('1')
                         </el-space>
                     </div>
                 </el-col>
-                <el-col>
-                    <div class="carousel-container">
-                        <el-carousel height="400px" :autoplay="true">
-                            <el-carousel-item v-for="item in 4" :key="item">
-                                <h3 class="carousel-item">{{ item }}</h3>
-                            </el-carousel-item>
-                        </el-carousel>
-                    </div>
-                </el-col>
-                <!-- Carousel in Main -->
+                <el-container>
+                    <el-row :gutter="30" v-for="(row, rowIndex) in getRows(teacherData)" :key="rowIndex">
+                        <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
+                            <el-card class="profile-card2" shadow="hover" @click="handleClick(teacher.link)">
+                                <div class="profile-text">
+                                    <img :src="teacher.image" alt="Profile Image"/>
+                                    <div class="card-name">
+                                        <span>{{ teacher.title }}</span>
+                                    </div>
+                                    <div>
+                                        <span>{{ truncateDescription(teacher.description, 100) }}</span>
+                                    </div>
+                                </div>
+
+                            </el-card>
+                        </el-col>
+                    </el-row>
+                </el-container>
             </el-row>
         </el-container>
     </el-container>
 </template>
 <style scoped lang="scss">
+//主体框架
 .main-container {
     flex: 1;
-    margin: 20px;
     position: relative;
     display: flex;
 }
@@ -289,14 +385,14 @@ const activeName = ref('1')
 
 .block {
     flex: 1; /* 默认每个子元素平分容器空间 */
-    padding: 20px; /* 子元素内边距 */
-    background-color: #FFFFFF; /* 子元素背景颜色 */
-    margin: 20px; /* 子元素之间的间距 */
-
+    padding: 10px; /* 子元素内边距 */
+    //background-color: #FFFFFF; /* 子元素背景颜色 */
+    margin: 30px; /* 子元素之间的间距 */
 }
 
 .block-1 {
     flex: 3; /* 这将使这个块占用双倍于其他块的空间 */
+
 }
 
 .block-2 {
@@ -314,7 +410,7 @@ const activeName = ref('1')
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding-bottom: 30px;
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
 }
 
 .aside-title {
@@ -322,7 +418,11 @@ const activeName = ref('1')
     font-weight: bold;
     display: flex;
     align-items: center;
-    color: #2980B9;
+    //背景版渐变色
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
 }
 
 .more-button {
@@ -370,10 +470,173 @@ const activeName = ref('1')
     white-space: nowrap;
     overflow: hidden; /* 省略过长文本 */
 }
-.aside-col{
-    margin-top: 190px;
+
+//卡片效果
+//名师荟萃
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
 }
 
+.profile-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+    overflow: hidden; /* 防止内部内容溢出 */
+    width: calc(100% - 20px); /* 调整卡片宽度，减去间距 */
+}
+
+.profile-card::before,
+.profile-card::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #409eff;
+    transition: width 0.3s ease-out;
+}
+
+.profile-card::before {
+    top: 0;
+    left: 0;
+}
+
+.profile-card::after {
+    bottom: 0;
+    right: 0;
+}
+
+.profile-card:hover::before {
+    width: 100%;
+}
+
+.profile-card:hover::after {
+    width: 100%;
+}
+
+.profile-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 卡片文本 */
+.profile-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-name {
+    font-size: 1.5em; /* 调整字体大小 */
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text; /* 渐变色字体 */
+    transition: background 0.3s ease;
+}
+
+.card-info {
+    text-align: center;
+    margin-top: 5px;
+    color: #888;
+    overflow: hidden; /* 文本溢出时隐藏 */
+    text-overflow: ellipsis; /* 文本溢出时显示省略号 */
+    //white-space: nowrap; /* 强制不换行 */
+}
+
+//教学成果
+.profile-card2 {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+    width: calc(100% - 20px); /* 调整卡片宽度，减去间距 */
+}
+
+.profile-card2::before,
+.profile-card2::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: transparent; /* 背景颜色透明 */
+    transition: width 0.3s ease-out, background-color 0.3s ease-out; /* 添加背景颜色过渡 */
+    transform: scale(1);
+}
+
+.profile-card2::before {
+    top: 0;
+    left: 0;
+}
+
+.profile-card2::after {
+    bottom: 0;
+    right: 0;
+}
+
+.profile-card2:hover::before,
+.profile-card2:hover::after {
+    width: 100%;
+    //background-color: #409eff; /* 鼠标悬停时背景颜色变为渐变蓝色 */
+}
+
+.profile-card2:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    color: #fff; /* 鼠标悬停时字体颜色变为白色 */
+}
+
+/* 卡片内容 */
+.profile-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    background-color: white; /* 卡片背景色 */
+    border-radius: 10px; /* 圆角 */
+    overflow: hidden; /* 防止内部内容溢出 */
+}
+
+/* 卡片图片 */
+.profile-image {
+    width: 3.5cm; /* 设置图片宽度 */
+    height: 4.5cm; /* 设置图片高度 */
+    object-fit: cover;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover .profile-image {
+    transform: scale(1.1); /* 图片放大效果 */
+}
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .profile-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+//轮播大图效果
 .carousel-container {
     position: relative;
     height: 450px;
@@ -387,7 +650,6 @@ const activeName = ref('1')
     display: flex;
     overflow: hidden;
 }
-
 
 .include {
     flex: 1;
@@ -425,9 +687,6 @@ const activeName = ref('1')
     // overflow: hidden;
 }
 
-.include {
-
-}
 
 .carousel-image {
     width: calc(100% + 80px); /* Adjust to cover the overflow */
@@ -447,20 +706,6 @@ const activeName = ref('1')
 
 .demo-collapse {
     font-family: 'Arial', sans-serif; /* Set the default font for the collapse component */
-}
-
-
-/* 手风琴效果  面板
- */
-
-
-.content {
-    font-size: 14px;
-    color: #333; /* Set the color of the content */
-}
-
-.el-main {
-    height: 2000px;
 }
 
 
