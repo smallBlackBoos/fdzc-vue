@@ -1,17 +1,27 @@
 <script setup>
+
+import { ref } from 'vue';
+
+// 专业信息
+const majors = ref([
+  {"id": "1", "name": "数据科学与大数据技术专业"},
+  {"id": "2", "name": "计算机科学与技术专业"},
+  {"id": "3", "name": "计算机科学与技术（专升本）专业"},
+  {"id": "4", "name": "软件工程专业"},
+  {"id": "5", "name": "软件工程（专升本）专业"},
+  {"id": "6", "name": "数字媒体技术专业"},
+  {"id": "7", "name": "计算机工程系概要"},
+]);
+
 </script>
 
 <template>
   <!-- 专业设置 -->
   <el-tag type="primary" effect="dark">计算机工程系</el-tag>
   <div class="list">
-    <li><a href="">数据科学与大数据技术专业</a></li>
-    <li><a href="">计算机科学与技术专业</a></li>
-    <li><a href="">计算机科学与技术（专升本）专业</a></li>
-    <li><a href="">软件工程专业</a></li>
-    <li><a href="">软件工程（专升本）专业</a></li>
-    <li><a href="">数字媒体技术专业</a></li>
-    <li><a href="">计算机工程系概要</a></li>
+    <li v-for="item in majors" :key="item.id">
+      <a href="">{{ item.name }}</a>
+    </li>
   </div>
 </template>
 

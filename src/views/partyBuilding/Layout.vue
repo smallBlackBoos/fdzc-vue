@@ -13,7 +13,7 @@ watch(
 
     // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
     toRoute.matched.splice(2, 1); // 去掉第2层路由
-    toRoute.matched[1].path = "/department/dept/introduction"; // 手动修改第2层路由为，默认路由
+    toRoute.matched[1].path = "/party_building/pb/rules"; // 手动修改第2层路由为，默认路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,
       meta: item.meta || {}, // 确保meta存在，避免undefined
@@ -29,7 +29,7 @@ watch(
       <img src="../../assets/bg1.jpg" width="100%" />
       <div class="sub_info">
         <div class="column_name">
-          <h2>本系简介</h2>
+          <h2>党建专栏</h2>
         </div>
         <div class="column_seat">
           <el-breadcrumb :separator-icon="ArrowRight">
