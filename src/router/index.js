@@ -16,6 +16,7 @@ import Announcements from "@/views/news/Announcements.vue";
 import LatestNews from "@/views/news/LatestNews.vue";
 // 党建工作组件
 import PartyBuildingLayout from "@/views/partyBuilding/Layout.vue";
+import PbDetails from "@/views/partyBuilding/Details.vue";
 import Rules from "@/views/partyBuilding/Rules.vue";
 import PbAnnouncements from "@/views/partyBuilding/Announcements.vue";
 import Honor from "@/views/partyBuilding/Honor.vue";
@@ -26,6 +27,7 @@ import Study from "@/views/partyBuilding/Study.vue";
 import DisciplineConLayout from "@/views/disciplineCon/Layout.vue";
 import DpList from "@/views/disciplineCon/List.vue";
 import DpDetails from "@/views/disciplineCon/Details.vue";
+import DpSingleDetails from "@/views/disciplineCon/SingleDetails.vue";
 // import achievement from "@/views/news/Layout.vue";
 
 
@@ -106,7 +108,8 @@ const routes = [
                 // redirect: 'party_building/announcements',
                 children: [
                     { path: 'dc/:articleType', component: DpList },                 // 文章列表
-                    { path: 'dc/:articleType/details/:id', component: DpDetails }   // 文章详情
+                    { path: 'dc/:articleType/details/:id', component: DpDetails },  // 文章详情
+                    { path: 'dc/details/:articleType', component: DpSingleDetails } // 单一文章展示
                 ]
             }
         ]

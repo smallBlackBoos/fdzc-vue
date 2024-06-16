@@ -66,11 +66,11 @@ const router = useRouter()
                         </el-sub-menu>
                         <el-sub-menu index="/discipline_con">
                             <template #title>学科建设</template>
-                            <el-menu-item index="/discipline_con/dc/1" exact>本科培养</el-menu-item>
-                            <el-menu-item index="/discipline_con/dc/2" exact>专升本培养</el-menu-item>
-                            <el-menu-item index="/discipline_con/dc/3" exact>实践教学</el-menu-item>
-                            <el-menu-item index="/discipline_con/dc/4" exact>质量工程</el-menu-item>
-                            <el-menu-item index="/discipline_con/dc/5" exact>教学成果</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/12" exact>本科培养</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/13" exact>专升本培养</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/14" exact>实践教学</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/15" exact>质量工程</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/details/16" exact>教学成果</el-menu-item>
                         </el-sub-menu>
 
                         <el-menu-item index="6">教务管理</el-menu-item>
