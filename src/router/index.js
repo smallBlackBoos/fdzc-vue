@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // 导入组件
 // 首页组件
-import IndexInfo from "@/views/index/indexInfo.vue";
+import IndexInfo from "@/views/index/IndexInfo.vue";
 import Index from "@/views/index.vue";
 // 系部概况组件
 import DepartmentLayout from "@/views/Department/Layout.vue";
@@ -16,12 +16,18 @@ import Announcements from "@/views/news/Announcements.vue";
 import LatestNews from "@/views/news/LatestNews.vue";
 // 党建工作组件
 import PartyBuildingLayout from "@/views/partyBuilding/Layout.vue";
+import PbDetails from "@/views/partyBuilding/Details.vue";
 import Rules from "@/views/partyBuilding/Rules.vue";
 import PbAnnouncements from "@/views/partyBuilding/Announcements.vue";
 import Honor from "@/views/partyBuilding/Honor.vue";
 import Events from "@/views/partyBuilding/Events.vue";
 import Example from "@/views/partyBuilding/Example.vue";
 import Study from "@/views/partyBuilding/Study.vue";
+// 学科建设组件
+import DisciplineConLayout from "@/views/disciplineCon/Layout.vue";
+import DpList from "@/views/disciplineCon/List.vue";
+import DpDetails from "@/views/disciplineCon/Details.vue";
+import DpSingleDetails from "@/views/disciplineCon/SingleDetails.vue";
 // import achievement from "@/views/news/Layout.vue";
 
 
@@ -66,35 +72,48 @@ const routes = [
                     },
                 ]
             },
+            // {
+            //     path: 'party_building',
+            //     component: PartyBuildingLayout,
+            //     meta: {title: "党建专栏"},
+            //     // redirect: 'party_building/announcements',
+            //     children: [
+            //         {
+            //             path: 'pb',
+            //             children: [
+            //                 { path: 'rules', component: Rules, meta: {title: "党规党纪"} },
+            //                 { path: 'pbAnnouncements', component: PbAnnouncements, meta: {title: "通知公告"} },
+            //                 { path: 'honor', component: Honor, meta: {title: "荣誉展示"} },
+            //                 { path: 'events', component: Events, meta: {title: "主题党日活动"} },
+            //                 { path: 'example', component: Example, meta: {title: "榜样标兵"} },
+            //                 { path: 'study', component: Study, meta: {title: "二十大专题学习"} },
+            //             ]
+            //         },
+            //     ]
+            // },
             {
                 path: 'party_building',
                 component: PartyBuildingLayout,
                 meta: {title: "党建专栏"},
                 // redirect: 'party_building/announcements',
                 children: [
-                    {
-                        path: 'pb',
-                        children: [
-                            { path: 'rules', component: Rules, meta: {title: "党规党纪"} },
-                            { path: 'pbAnnouncements', component: PbAnnouncements, meta: {title: "通知公告"} },
-                            { path: 'honor', component: Honor, meta: {title: "荣誉展示"} },
-                            { path: 'events', component: Events, meta: {title: "主题党日活动"} },
-                            { path: 'example', component: Example, meta: {title: "榜样标兵"} },
-                            { path: 'study', component: Study, meta: {title: "二十大专题学习"} },
-                        ]
-                    },
+                    { path: 'pb/:articleType', component: DpList },                 // 文章列表
+                    { path: 'pb/:articleType/details/:id', component: DpDetails }   // 文章详情
+                ]
+            },
+            {
+                path: 'discipline_con',
+                component: DisciplineConLayout,
+                meta: {title: "学科建设"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 'dc/:articleType', component: DpList },                 // 文章列表
+                    { path: 'dc/:articleType/details/:id', component: DpDetails },  // 文章详情
+                    { path: 'dc/details/:articleType', component: DpSingleDetails } // 单一文章展示
                 ]
             }
         ]
     },
-    {
-        path:'/index',
-        component: IndexInfo
-    },
-    {
-        path:'/info',
-        component: Introduction
-    }
 ]
 
 // 创建路由器

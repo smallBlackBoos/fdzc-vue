@@ -8,21 +8,6 @@ const handleSelect = (key: string) => {
 }
 
 const router = useRouter()
-
-const mainHeight = ref(''); // el-main 初始高度，可以根据需要动态计算  
-  
-// 动态设置 mainHeight  
-onMounted(() => {  
-    // 假设 header 的高度是固定的 60px，并且我们想要 main 占据剩余的高度  
-    const viewportHeight = window.innerHeight;  
-    const headerHeight = 150; // 假设的 header 高度  
-    mainHeight.value = `${viewportHeight - headerHeight}px`;  
-
-    console.log(viewportHeight);
-    console.log(mainHeight.value);
-    
-});  
-
 </script>
 
 <template>
@@ -79,7 +64,15 @@ onMounted(() => {
                             <el-menu-item index="/party_building/pb/example" exact>榜样标兵</el-menu-item>
                             <el-menu-item index="/party_building/pb/study" exact>二十大专题学习</el-menu-item>
                         </el-sub-menu>
-                        <el-menu-item index="5">学科建设</el-menu-item>
+                        <el-sub-menu index="/discipline_con">
+                            <template #title>学科建设</template>
+                            <el-menu-item index="/discipline_con/dc/12" exact>本科培养</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/13" exact>专升本培养</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/14" exact>实践教学</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/15" exact>质量工程</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/details/16" exact>教学成果</el-menu-item>
+                        </el-sub-menu>
+
                         <el-menu-item index="6">教务管理</el-menu-item>
                         <el-menu-item index="7">规章制度</el-menu-item>
                         <el-menu-item index="8">学生工作</el-menu-item>
@@ -89,7 +82,7 @@ onMounted(() => {
                 </el-col>
             </el-row>
         <!-- Main -->
-        <el-main class="main-content" :style="{ height: mainHeight + 'px' }">
+        <el-main class="main-content">
         <!-- <el-main class="main-content"> -->
             <!-- 路由放置位置-->
             <router-view></router-view>

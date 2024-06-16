@@ -13,7 +13,7 @@ watch(
 
     // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
     toRoute.matched.splice(2, 1); // 去掉第2层路由
-    toRoute.matched[1].path = "/news/n/announcements"; // 手动修改第2层路由为，默认路由
+    toRoute.matched[1].path = "/party_building/pb/rules"; // 手动修改第2层路由为，默认路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,
       meta: item.meta || {}, // 确保meta存在，避免undefined
@@ -29,7 +29,7 @@ watch(
       <img src="../../assets/bg1.jpg" width="100%" />
       <div class="sub_info">
         <div class="column_name">
-          <h2>新闻中心</h2>
+          <h2>党建专栏</h2>
         </div>
         <div class="column_seat">
           <el-breadcrumb :separator-icon="ArrowRight">
@@ -48,18 +48,30 @@ watch(
     <el-container>
       <!-- 左侧菜单栏 -->
       <el-aside width="170px">
-        <h2 class="mb-2">新闻中心</h2>
+        <h2 class="mb-2">党建专栏</h2>
         <el-menu
           :default-active="$router.currentRoute.value.path"
           background-color="#f6f6f6"
           class="el-menu-vertical-demo"
           router
         >
-          <el-menu-item index="/news/n/announcements">
+          <el-menu-item index="/party_building/pb/rules">
+            <span>党规党纪</span>
+          </el-menu-item>
+          <el-menu-item index="/party_building/pb/pbAnnouncements">
             <span>通知公告</span>
           </el-menu-item>
-          <el-menu-item index="/news/n/latestNews">
-            <span>最新动态</span>
+          <el-menu-item index="/party_building/pb/honor">
+            <span>荣誉展示</span>
+          </el-menu-item>
+          <el-menu-item index="/party_building/pb/events">
+            <span>主题党日活动</span>
+          </el-menu-item>
+          <el-menu-item index="/party_building/pb/example">
+            <span>榜样标兵</span>
+          </el-menu-item>
+          <el-menu-item index="/party_building/pb/study">
+            <span>二十大专题学习</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -96,7 +108,7 @@ h2 {
 /* 左侧菜单栏 */
 .el-menu {
   border-right: 0px;  /* 去掉左侧边栏的右边框 */
-  height: 95px;
+  height: 275px;
 
   .el-sub-menu {
     height: 45px;
@@ -105,21 +117,21 @@ h2 {
   .el-menu-item {
     height: 45px;
   }
-}
 
-/* 菜单栏中文字居中 */
-.el-menu-item * {
-  margin: 0 auto;
+  /* 菜单栏中文字居中 */
+  .el-menu-item * {
+    margin: 0 auto;
+  }
+
+  /* 鼠标悬停时样式 */
+  .el-menu-item:hover {
+    color: #fff;
+    background-color: #fa9d0a;
+  }
 }
 
 /* 菜单选中时样式 */
 .is-active {
-  color: #fff;
-  background-color: #fa9d0a;
-}
-
-/* 鼠标悬停时样式 */
-.el-menu-item:hover {
   color: #fff;
   background-color: #fa9d0a;
 }

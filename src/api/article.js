@@ -24,7 +24,12 @@ export const articleCategoryDeleteService = (id) => {
 }
 // 文章列表查询
 export const articleListService = (params) => {
-    return request.get('/article', {params})
+    return request.get('/article/list', {params})
+}
+
+// 文章查询
+export const articleService = (id) => {
+    return request.get('/article/' + id);
 }
 
 // 文章添加

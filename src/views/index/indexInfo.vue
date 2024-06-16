@@ -195,7 +195,6 @@ const handleCarouselChange = (index) => {
 </script>
 
 <template>
-    <!-- <el-container style="height: 100vh;">-->
     <el-container>
         <el-header style="height: 450px;padding: 0;">
             <!-- Carousel in Header -->
