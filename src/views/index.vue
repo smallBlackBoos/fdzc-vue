@@ -72,12 +72,31 @@ const router = useRouter()
                             <el-menu-item index="/discipline_con/dc/15" exact>质量工程</el-menu-item>
                             <el-menu-item index="/discipline_con/dc/details/16" exact>教学成果</el-menu-item>
                         </el-sub-menu>
-
-                        <el-menu-item index="6">教务管理</el-menu-item>
-                        <el-menu-item index="7">规章制度</el-menu-item>
-                        <el-menu-item index="8">学生工作</el-menu-item>
-                        <el-menu-item index="9">国际交流</el-menu-item>
-                        <el-menu-item index="10">办事指南</el-menu-item>
+                        <el-sub-menu index="6">
+                            <template #title>师资队伍</template>
+                            <el-menu-item index="6.1" exact>师资信息</el-menu-item>
+                            <el-menu-item index="6.2" exact>学科带头人</el-menu-item>
+                            <el-menu-item index="6.2" exact>辅导员简介</el-menu-item>
+                            <el-menu-item index="6.2" exact>行政人员简介</el-menu-item>
+                        </el-sub-menu>
+                        <el-sub-menu index="7">
+                            <template #title>教务管理</template>
+                            <el-menu-item index="7.1" exact>本科培养</el-menu-item>
+                            <el-menu-item index="7.2" exact>专升本培养</el-menu-item>
+                        </el-sub-menu>
+                        <el-menu-item index="8">规章制度</el-menu-item>
+                        <el-sub-menu index="9">
+                            <template #title>学生工作</template>
+                            <el-menu-item index="9.1" exact>团学工作</el-menu-item>
+                            <el-menu-item index="9.2" exact>学科竞赛</el-menu-item>
+                            <el-menu-item index="9.3" exact>考研动态</el-menu-item>
+                            <el-menu-item index="9.4" exact>敏学大讲堂</el-menu-item>
+                        </el-sub-menu>
+                        <el-sub-menu index="10">
+                            <template #title>办事指南</template>
+                            <el-menu-item index="10.1" exact>教务指南</el-menu-item>
+                            <el-menu-item index="11.1" exact>表格下载</el-menu-item>
+                        </el-sub-menu>
                     </el-menu>
                 </el-col>
             </el-row>

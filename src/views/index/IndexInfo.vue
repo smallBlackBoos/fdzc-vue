@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import {Bell, ElementPlus} from '@element-plus/icons-vue'
 import {ref} from "vue";
-import {id} from "element-plus/es/locale";
 import {useRouter} from "vue-router";
 
 // 轮播大图数组
@@ -28,25 +26,22 @@ const carouselItems = ref([
         image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/13/1c/1fe64a664f11b2a7929da4900e25/77bec478-c37d-464d-869e-402d8575eb5f.png'
     }
 ]);
-
 //新闻公告
-const newsList = ref([
-    {id: 1, date: '2024-06-15', title: '新闻标题1'},
-    {id: 2, date: '2024-06-14', title: '新闻标题2'},
-    {id: 3, date: '2024-06-13', title: '新闻标题3'},
-    {id: 4, date: '2024-06-15', title: '新闻标题4'},
-    {id: 5, date: '2024-06-14', title: '新闻标题5'},
-    {id: 6, date: '2024-06-13', title: '新闻标题6'},
-    {id: 7, date: '2024-06-15', title: '新闻标题7'},
-    {id: 8, date: '2024-06-14', title: '新闻标题8'},
-    {id: 9, date: '2024-06-13', title: '新闻标题9'},
-    {id: 10, date: '2024-06-15', title: '新闻标题10'},
-    {id: 11, date: '2024-06-14', title: '新闻标题12'},
-    {id: 12, date: '2024-06-13', title: '新闻标题13'}
+const newsItems = ref([
+    {id: 1, createTime: '2024-06-15', title: '新闻标题1'},
+    {id: 2, createTime: '2024-06-14', title: '新闻标题2'},
+    {id: 3, createTime: '2024-06-13', title: '新闻标题3'},
+    {id: 4, createTime: '2024-06-15', title: '新闻标题4'},
+    {id: 5, createTime: '2024-06-14', title: '新闻标题5'},
+    {id: 6, createTime: '2024-06-13', title: '新闻标题6'},
+    {id: 7, createTime: '2024-06-15', title: '新闻标题7'},
+    {id: 8, createTime: '2024-06-14', title: '新闻标题8'},
+    {id: 9, createTime: '2024-06-13', title: '新闻标题9'},
+    {id: 10, createTime: '2024-06-15', title: '新闻标题10'},
+    {id: 11, createTime: '2024-06-14', title: '新闻标题12'},
+    {id: 12, createTime: '2024-06-13', title: '新闻标题13'}
 ])
-
-
-//名师荟萃name
+//名师荟萃
 const teacherData = ref([
     {
         id: 1,
@@ -89,8 +84,6 @@ const teacherData = ref([
         link: 'https://example.com/4'
     }
 ]);
-
-
 //办学成果
 const ResultData = ref([
     {
@@ -164,6 +157,51 @@ const ResultData = ref([
         link: 'https://example.com/4'
     }
 ]);
+
+// 声明一个异步的函数
+import {
+    IndexListService
+} from "@/api/index.js";
+
+// 定义 IndexList 异步方法
+// 轮播大图数组
+const carouselList = async () => {
+    try {
+        let result = await IndexListService("1", "5");
+        // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
+        carouselItems.value = result.data.data;
+        console.log(result.data.data);
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+carouselList();
+//新闻公告
+const newsList = async () => {
+    try {
+        let result = await IndexListService("1", "10");
+        // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
+        newsItems.value = result.data.data;
+        console.log(result.data.data);
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+newsList();
+//名师荟萃
+const teacherList = async () => {
+    try {
+        let result = await IndexListService("1", "4");
+        // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
+        teacherData.value = result.data.data;
+        console.log(result.data.data);
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+teacherList();
+
+
 //简介省略过多的字
 const truncateDescription = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -176,7 +214,6 @@ const router = useRouter();
 const handleClick = (link) => {
     router.push(link);
 };
-
 //每行两个
 const getRows = (data) => {
     const rows = [];
@@ -185,13 +222,21 @@ const getRows = (data) => {
     }
     return rows;
 };
+//每行四个
+const getRows1 = (data,itemsPerRow) => {
+    const rows = [];
+    for (let i = 0; i < data.length; i += itemsPerRow) {
+        rows.push(data.slice(i, i + itemsPerRow));
+    }
+    return rows;
+};
 //一行走马灯卡片
 const isDarkBackground = ref(false);
-
 const handleCarouselChange = (index) => {
     console.log('Carousel index changed to:', index);
     isDarkBackground.value = !isDarkBackground.value; // 切换背景颜色状态
 };
+
 </script>
 
 <template>
@@ -203,9 +248,11 @@ const handleCarouselChange = (index) => {
                     <el-carousel-item v-for="(item, index) in carouselItems" :key="index">
                         <div class="carousel-content">
                             <div class="include">
-                                <div class="text-section">
-                                    <h2>{{ item.title }}</h2>
-                                    <p>{{ item.description }}</p>
+                                <div class="include-section">
+                                    <div class="text-section">
+<!--                                     <h3>{{ item.title }}</h3>-->
+                                        <p>{{ truncateDescription(item.description,100)}}</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="image-section">
@@ -267,8 +314,8 @@ const handleCarouselChange = (index) => {
                     </div>
                     <!-- 新闻公告列表 -->
                     <div class="news-list">
-                        <div class="news-item" v-for="news in newsList" :key="news.id">
-                            <span class="news-time">{{ news.date }}</span>
+                        <div class="news-item" v-for="news in newsItems" :key="news.id">
+                            <span class="news-time">{{ news.createTime }}</span>
                             <span class="news-title">{{ truncateDescription(news.title, 10) }}</span>
                         </div>
                     </div>
@@ -323,22 +370,27 @@ const handleCarouselChange = (index) => {
                     </div>
                 </el-col>
                 <el-container>
-                    <el-row :gutter="30" v-for="(row, rowIndex) in getRows(teacherData)" :key="rowIndex">
-                        <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
-                            <el-card class="profile-card2" shadow="hover" @click="handleClick(teacher.link)">
-                                <div class="profile-text">
-                                    <img :src="teacher.image" alt="Profile Image"/>
-                                    <div class="card-name">
-                                        <span>{{ teacher.title }}</span>
-                                    </div>
-                                    <div>
-                                        <span>{{ truncateDescription(teacher.description, 100) }}</span>
-                                    </div>
-                                </div>
-
-                            </el-card>
-                        </el-col>
-                    </el-row>
+                    <el-col>
+                        <div class="card-container">
+                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows1(teacherData, 4)" :key="rowIndex" style="margin-top: 30px;">
+                                <el-col :span="6" v-for="(teacher, colIndex) in row" :key="colIndex">
+                                    <el-card class="profile-card2" @click="() => handleClick(teacher.link)">
+                                        <div class="profile-content">
+                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+                                            <div class="profile-text">
+                                                <div class="card-name">
+                                                    <span>{{ teacher.title }}</span>
+                                                </div>
+                                                <div class="card-info">
+                                                    <span>{{ truncateDescription(teacher.description, 50) }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </el-card>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-col>
                 </el-container>
             </el-row>
         </el-container>
@@ -433,7 +485,7 @@ const handleCarouselChange = (index) => {
 }
 
 .news-list {
-    max-height: 300px; /* 根据需要调整高度 */
+    //max-height: 300px; /* 根据需要调整高度 */
     overflow-y: auto; /* 垂直滚动 */
 }
 
@@ -441,7 +493,7 @@ const handleCarouselChange = (index) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 20px 0;
     border-bottom: 1px solid #e0e0e0; /* 底部边框 */
     transition: background-color 0.3s, color 0.3s; /* 动画效果 */
 }
@@ -451,8 +503,14 @@ const handleCarouselChange = (index) => {
 }
 
 .news-item:hover {
-    background-color: #e0f7fa; /* 悬停背景颜色 */
-    color: #00796b; /* 悬停字体颜色 */
+    background: linear-gradient(to right, #2980B9, #0768B4); /* 悬停背景颜色 */
+     /* 悬停字体颜色 */
+    .news-time{
+        color: #FFFFFF;
+    }
+    .news-title{
+        color: #FFFFFF;
+    }
 }
 
 .news-time {
@@ -654,36 +712,46 @@ const handleCarouselChange = (index) => {
     flex: 1;
     background: linear-gradient(264deg, transparent 80px, #0768B4 80px, #2980B9 calc(100% - 80px));
 }
+.include-section{
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    padding: 40px;
+    position: relative;
+    z-index: 3;
+    width: 250px;
+    transform: skewX(10deg); /* Skew the text section */
+    transform-origin: right; /* Adjust the origin of skewing */
+
+}
 
 .text-section {
     /* 占据整体的一部分，比例可以通过调整这里的 flex 属性来控制 */
-    padding: 130px;
     color: white;
-    background: linear-gradient(to right, #2980B9, #0768B4); /* Semi-transparent background */
     position: relative;
-    z-index: 2;
-    transform: skewX(20deg); /* Skew the text section */
+    z-index: 3;
     transform-origin: right; /* Adjust the origin of skewing */
+    height: 450px;
 }
 
-.text-section h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    transform: skewX(-20deg); /* Counter-skew the text */
+.text-section h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    transform: skewX(-10deg); /* Counter-skew the text */
     transform-origin: right; /* Adjust the origin of skewing */
 }
 
 .text-section p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.5;
-    transform: skewX(-20deg); /* Counter-skew the text */
+    transform: skewX(-10deg); /* Counter-skew the text */
     transform-origin: right; /* Adjust the origin of skewing */
+    padding: 10px;
 }
 
 .image-section {
-    flex: 5;
+    flex: 4;
     position: relative;
     // overflow: hidden;
+
 }
 
 
