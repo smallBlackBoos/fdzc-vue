@@ -3,165 +3,21 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 
 // 轮播大图数组
-const carouselItems = ref([
-    {
-
-        title: 'Title 1',
-        description: 'Description for the first slide.',
-        image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/c5/0f/9abae323494fb277eb81b38e3f88/5835432d-16b3-402e-8874-823afec2b206.png'
-    },
-    {
-        title: 'Title 2',
-        description: 'Description for the second slide.',
-        image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/a9/f8/02e153d64bde891f705028b437e2/dce87790-2e0e-4501-8042-f9892f0ab591.png'
-    },
-    {
-        title: 'Title 3',
-        description: 'Description for the third slide.',
-        image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/19/03/23c96b554969806b8533efeb5f15/c0e01a66-c838-4c29-8452-8c2ae53aa3f6.jpg'
-    },
-    {
-        title: 'Title 4',
-        description: 'Description for the fourth slide.',
-        image: 'https://cs.fdzcxy.edu.cn/_upload/article/images/13/1c/1fe64a664f11b2a7929da4900e25/77bec478-c37d-464d-869e-402d8575eb5f.png'
-    }
-]);
+const carouselItems = ref([]);
 //新闻公告
-const newsItems = ref([
-    {id: 1, createTime: '2024-06-15', title: '新闻标题1'},
-    {id: 2, createTime: '2024-06-14', title: '新闻标题2'},
-    {id: 3, createTime: '2024-06-13', title: '新闻标题3'},
-    {id: 4, createTime: '2024-06-15', title: '新闻标题4'},
-    {id: 5, createTime: '2024-06-14', title: '新闻标题5'},
-    {id: 6, createTime: '2024-06-13', title: '新闻标题6'},
-    {id: 7, createTime: '2024-06-15', title: '新闻标题7'},
-    {id: 8, createTime: '2024-06-14', title: '新闻标题8'},
-    {id: 9, createTime: '2024-06-13', title: '新闻标题9'},
-    {id: 10, createTime: '2024-06-15', title: '新闻标题10'},
-    {id: 11, createTime: '2024-06-14', title: '新闻标题12'},
-    {id: 12, createTime: '2024-06-13', title: '新闻标题13'}
-])
+const newsItems = ref([])
 //名师荟萃
-const teacherData = ref([
-    {
-        id: 1,
-        article_id: 101,
-        type: '名师荟萃',
-        title: 'Teacher Name 1',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'Teacher Info 1 Teacher Info 1Teacher Info 1Teacher Info Teacher Info 1Teacher InfTeacher Info 1Teacher Info 1Teacher Info 1Teacher Info 1o 1Teacher Info 11Teacher Info 1Teacher Info 1Teacher Info 1Teacher Info 1',
-        create_time: '2024-05-11',
-        link: 'https://example.com/1'
-    },
-    {
-        id: 2,
-        article_id: 102,
-        type: '名师荟萃',
-        title: 'Teacher Name 2',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2Teacher Info 2',
-        create_time: '2024-05-12',
-        link: 'https://example.com/2'
-    },
-    {
-        id: 3,
-        article_id: 103,
-        type: '名师荟萃',
-        title: 'Teacher Name 3',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3Teacher Info 3',
-        create_time: '2024-05-13',
-        link: 'https://example.com/3'
-    },
-    {
-        id: 4,
-        article_id: 104,
-        type: '名师荟萃',
-        title: 'Teacher Name 4',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4Teacher Info 4',
-        create_time: '2024-05-14',
-        link: 'https://example.com/4'
-    }
-]);
+const teacherData = ref([]);
 //办学成果
-const ResultData = ref([
-    {
-        id: 1,
-        article_id: 105,
-        type: '办学成果',
-        title: 'ResultData 1',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-11',
-        link: 'https://example.com/1'
-    },
-    {
-        id: 2,
-        article_id: 106,
-        type: '办学成果',
-        title: 'ResultData 2',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-12',
-        link: 'https://example.com/2'
-    },
-    {
-        id: 3,
-        article_id: 107,
-        type: '办学成果',
-        title: 'ResultData 3',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'TResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-13',
-        link: 'https://example.com/3'
-    },
-    {
-        id: 4,
-        article_id: 108,
-        type: '办学成果',
-        title: 'ResultData 4',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-14',
-        link: 'https://example.com/4'
-    },
-    {
-        id: 5,
-        article_id: 108,
-        type: '办学成果',
-        title: 'ResultData 4',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-14',
-        link: 'https://example.com/4'
-    },
-    {
-        id: 6,
-        article_id: 108,
-        type: '办学成果',
-        title: 'ResultData 4',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-14',
-        link: 'https://example.com/4'
-    },
-    {
-        id: 7,
-        article_id: 108,
-        type: '办学成果',
-        title: 'ResultData 4',
-        image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        description: 'ResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultDataResultData',
-        create_time: '2024-05-14',
-        link: 'https://example.com/4'
-    }
-]);
+const ResultData = ref([]);
 
 // 声明一个异步的函数
 import {
-    IndexListService
+    IndexListService,
 } from "@/api/index.js";
+import {
+    articleInfoService, articleTypeListService
+} from "@/api/article.js";
 
 // 定义 IndexList 异步方法
 // 轮播大图数组
@@ -179,10 +35,10 @@ carouselList();
 //新闻公告
 const newsList = async () => {
     try {
-        let result = await IndexListService("1", "10");
+        let result = await articleTypeListService(201);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
-        newsItems.value = result.data.data;
-        console.log(result.data.data);
+        newsItems.value = result.data.rows;
+        console.log(newsItems.value)
     } catch (error) {
         console.error("Error fetching data: ", error);
     }
@@ -217,6 +73,14 @@ ResultList();
 const truncateDescription = (text, maxLength) => {
     if (text.length > maxLength) {
         return text.substring(0, maxLength - 3) + '...';
+    } else {
+        return text;
+    }
+};
+
+const truncateDescription1 = (text, maxLength) => {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength - 3) ;
     } else {
         return text;
     }
@@ -326,8 +190,8 @@ const handleCarouselChange = (index) => {
                     <!-- 新闻公告列表 -->
                     <div class="news-list">
                         <div class="news-item" v-for="news in newsItems" :key="news.id">
-                            <span class="news-time">{{ news.createTime }}</span>
-                            <span class="news-title">{{ truncateDescription(news.title, 10) }}</span>
+                            <span class="news-time">{{ truncateDescription1(news.createTime,13) }}</span>
+                            <span class="news-title">{{ truncateDescription(news.articleTitle, 17) }}</span>
                         </div>
                     </div>
                 </el-col>
