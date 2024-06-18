@@ -200,7 +200,18 @@ const teacherList = async () => {
     }
 }
 teacherList();
-
+//办学成果
+const ResultList = async () => {
+    try {
+        let result = await IndexListService("1", "4");
+        // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
+        ResultData.value = result.data.data;
+        console.log(result.data.data);
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+ResultList();
 
 //简介省略过多的字
 const truncateDescription = (text, maxLength) => {
@@ -251,7 +262,7 @@ const handleCarouselChange = (index) => {
                                 <div class="include-section">
                                     <div class="text-section">
 <!--                                     <h3>{{ item.title }}</h3>-->
-                                        <p>{{ truncateDescription(item.description,100)}}</p>
+                                        <p>{{ truncateDescription(item.description,150)}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +284,7 @@ const handleCarouselChange = (index) => {
                                 <el-text class="aside-title">
                                     名师荟萃
                                 </el-text>
-                                <el-button type="text" class="more-button">更多 +</el-button>
+                                <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')" >更多 +</el-button>
                             </el-space>
                         </div>
                     </el-col>
@@ -290,7 +301,7 @@ const handleCarouselChange = (index) => {
                                                     <span>{{ teacher.title }}</span>
                                                 </div>
                                                 <div class="card-info">
-                                                    <span>{{ truncateDescription(teacher.description, 200) }}</span>
+                                                    <span>{{ truncateDescription(teacher.description, 100) }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +320,7 @@ const handleCarouselChange = (index) => {
                             <el-text class="aside-title">
                                 新闻公告
                             </el-text>
-                            <el-button type="text" class="more-button">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
                         </el-space>
                     </div>
                     <!-- 新闻公告列表 -->
@@ -330,7 +341,7 @@ const handleCarouselChange = (index) => {
                             <el-text class="aside-title">
                                 特色课程
                             </el-text>
-                            <el-button type="text" class="more-button">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
@@ -365,24 +376,24 @@ const handleCarouselChange = (index) => {
                             <el-text class="aside-title">
                                 办学成果
                             </el-text>
-                            <el-button type="text" class="more-button">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
                 <el-container>
                     <el-col>
                         <div class="card-container">
-                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows1(teacherData, 4)" :key="rowIndex" style="margin-top: 30px;">
-                                <el-col :span="6" v-for="(teacher, colIndex) in row" :key="colIndex">
+                            <el-row :gutter="10" v-for="(row, rowIndex) in getRows1(ResultData, 4)" :key="rowIndex" style="margin-top: 30px;">
+                                <el-col :span="6" v-for="(result, colIndex) in row" :key="colIndex">
                                     <el-card class="profile-card2" @click="() => handleClick(teacher.link)">
                                         <div class="profile-content">
-                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+<!--                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>-->
                                             <div class="profile-text">
                                                 <div class="card-name">
-                                                    <span>{{ teacher.title }}</span>
+                                                    <span>{{ result.title }}</span>
                                                 </div>
                                                 <div class="card-info">
-                                                    <span>{{ truncateDescription(teacher.description, 50) }}</span>
+                                                    <span>{{ truncateDescription(result.description, 100) }}</span>
                                                 </div>
                                             </div>
                                         </div>

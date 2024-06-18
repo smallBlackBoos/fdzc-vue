@@ -70,7 +70,7 @@ const router = useRouter()
                             <el-menu-item index="/discipline_con/dc/13" exact>专升本培养</el-menu-item>
                             <el-menu-item index="/discipline_con/dc/14" exact>实践教学</el-menu-item>
                             <el-menu-item index="/discipline_con/dc/15" exact>质量工程</el-menu-item>
-                            <el-menu-item index="/discipline_con/dc/details/16" exact>教学成果</el-menu-item>
+                            <el-menu-item index="/discipline_con/dc/details/16" exact>办学成果</el-menu-item>
                         </el-sub-menu>
                         <el-sub-menu index="6">
                             <template #title>师资队伍</template>
