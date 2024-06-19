@@ -6,29 +6,23 @@ import IndexInfo from "@/views/index/IndexInfo.vue";
 import Index from "@/views/index.vue";
 // 系部概况组件
 import DepartmentLayout from "@/views/Department/Layout.vue";
-import Leadership from "@/views/Department/Leadership.vue";
-import Introduction from "@/views/Department/Introduction.vue";
-import Achievement from "@/views/Department/Achievement.vue";
-import Profession from "@/views/Department/Profession.vue";
+import SpecialityDetails from "@/views/Department/SpecialityDetails.vue";
+import DeptSingleDetails from "@/views/Department/SingleDetails.vue";
+import SpecialityList from "@/views/Department/SpecialityList.vue";
 // 新闻中心组件
 import NewsLayout from "@/views/news/Layout.vue";
-import Announcements from "@/views/news/Announcements.vue";
-import LatestNews from "@/views/news/LatestNews.vue";
+import NDetails from "@/views/news/Details.vue";
+import NList from "@/views/news/List.vue";
 // 党建工作组件
 import PartyBuildingLayout from "@/views/partyBuilding/Layout.vue";
 import PbDetails from "@/views/partyBuilding/Details.vue";
-import Rules from "@/views/partyBuilding/Rules.vue";
-import PbAnnouncements from "@/views/partyBuilding/Announcements.vue";
-import Honor from "@/views/partyBuilding/Honor.vue";
-import Events from "@/views/partyBuilding/Events.vue";
-import Example from "@/views/partyBuilding/Example.vue";
-import Study from "@/views/partyBuilding/Study.vue";
+import PbList from "@/views/partyBuilding/List.vue";
+import PbSingleDetails from "@/views/partyBuilding/SingleDetails.vue";
 // 学科建设组件
 import DisciplineConLayout from "@/views/disciplineCon/Layout.vue";
 import DpList from "@/views/disciplineCon/List.vue";
 import DpDetails from "@/views/disciplineCon/Details.vue";
 import DpSingleDetails from "@/views/disciplineCon/SingleDetails.vue";
-// import achievement from "@/views/news/Layout.vue";
 
 
 // 定义路由关系
@@ -46,15 +40,9 @@ const routes = [
                 // redirect: 'department/dept/introduction',
                 meta: {title: "系部概况"},
                 children: [
-                    {
-                        path: 'dept',
-                        children: [
-                            { path: 'introduction', component: Introduction, meta: {title: "本系简介"} },
-                            { path: 'leadership', component: Leadership, meta: {title: "领导简介"} },
-                            { path: 'achievement', component: Achievement, meta: {title: "专业设置"} },
-                            { path: 'profession', component: Profession, meta: {title: "十年成果展"} }
-                        ]
-                    },
+                    { path: 'dept/speciality', component: SpecialityList },             // 专业列表
+                    { path: 'dept/speciality/:id', component: SpecialityDetails },      // 专业详情
+                    { path: 'dept/details/:articleType', component: DeptSingleDetails } // 单一文章展示
                 ]
             },
             {
@@ -63,42 +51,19 @@ const routes = [
                 meta: {title: "新闻中心"},
                 // redirect: 'news/announcements',
                 children: [
-                    {
-                        path: 'n',
-                        children: [
-                            { path: 'announcements', component: Announcements, meta: {title: "通知公告"} },
-                            { path: 'latestNews', component: LatestNews, meta: {title: "最新动态"} },
-                        ]
-                    },
+                    { path: 'n/:articleType', component: NList },                 // 文章列表
+                    { path: 'n/:articleType/details/:id', component: NDetails },  // 文章详情
                 ]
             },
-            // {
-            //     path: 'party_building',
-            //     component: PartyBuildingLayout,
-            //     meta: {title: "党建专栏"},
-            //     // redirect: 'party_building/announcements',
-            //     children: [
-            //         {
-            //             path: 'pb',
-            //             children: [
-            //                 { path: 'rules', component: Rules, meta: {title: "党规党纪"} },
-            //                 { path: 'pbAnnouncements', component: PbAnnouncements, meta: {title: "通知公告"} },
-            //                 { path: 'honor', component: Honor, meta: {title: "荣誉展示"} },
-            //                 { path: 'events', component: Events, meta: {title: "主题党日活动"} },
-            //                 { path: 'example', component: Example, meta: {title: "榜样标兵"} },
-            //                 { path: 'study', component: Study, meta: {title: "二十大专题学习"} },
-            //             ]
-            //         },
-            //     ]
-            // },
             {
                 path: 'party_building',
                 component: PartyBuildingLayout,
                 meta: {title: "党建专栏"},
                 // redirect: 'party_building/announcements',
                 children: [
-                    { path: 'pb/:articleType', component: DpList },                 // 文章列表
-                    { path: 'pb/:articleType/details/:id', component: DpDetails }   // 文章详情
+                    { path: 'pb/:articleType', component: PbList },                 // 文章列表
+                    { path: 'pb/:articleType/details/:id', component: PbDetails },  // 文章详情
+                    { path: 'pb/details/:articleType', component: PbSingleDetails } // 单一文章展示
                 ]
             },
             {
@@ -142,14 +107,7 @@ const router = createRouter({
 //     }
 // });
 
-// 全局前置守卫
-router.beforeEach((to, from, next) => {
-    // 在跳转路由之前执行返回顶部操作
-    window.scrollTo({
-        top: 0
-    });
-    next(); // 继续导航
-});
+
 
 // 导出路由
 export default router

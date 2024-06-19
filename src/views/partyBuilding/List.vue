@@ -61,8 +61,9 @@ watch(
 );
 </script>
 
+
 <template>
-  <!-- 列表 -->
+  <!-- 通知公告 -->
   <div class="news-list">
     <div class="news-item" v-for="news in info.rows" :key="news.id">
       <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->

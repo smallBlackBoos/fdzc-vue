@@ -1,21 +1,53 @@
-<script lang="ts" setup>
+<script setup>
 import { ref, watch } from "vue";
 import { ArrowRight } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
+import router from "@/router";
 const { currentRoute } = useRouter();
+// const router = useRouter();
+
+// 左侧菜单栏数据
+const menu = ref([
+  { path: "/department/dept/details/101", meta: "本系简介" },
+  { path: "/department/dept/details/102", meta: "领导简介" },
+  { path: "/department/dept/speciality", meta: "专业设置" },
+  { path: "/department/dept/details/104", meta: "十年成果展" },
+]);
 
 const breadcrumbItems = ref([]);
+const currentType = ref(""); // 当前选中的类型（路径）
 
 watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
+    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数 
+
+    if (articleType != null) {
+      menu.value.forEach((item) => {
+        const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
+        if (match && match[1] === articleType.toString()) {
+          toRoute.matched[2].path = "/department/dept/details/" + articleType;
+          toRoute.matched[2].meta.title = item.meta;
+        }
+      });
+    } else {
+      menu.value.forEach((item) => {
+        const match = item.path.match(/(\/)([^\/]*)$/); // 匹配最后一个斜杠后面的数字
+        console.log(match)
+        if (match && match[2] == "speciality") {
+          toRoute.matched[2].path = item.path;
+          toRoute.matched[2].meta.title = item.meta;
+        }
+      });
+    }
     // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
-    toRoute.matched.splice(2, 1); // 去掉第2层路由
-    toRoute.matched[1].path = "/department/dept/introduction"; // 手动修改第2层路由为，默认路由
+    toRoute.matched[1].path = menu.value[0].path; // 手动修改第2层路由为，默认路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,
       meta: item.meta || {}, // 确保meta存在，避免undefined
     }));
+
+    currentType.value = breadcrumbItems.value[2].path;
   },
   { immediate: true } // 立即执行一次回调函数
 );
@@ -27,7 +59,7 @@ watch(
       <img src="../../assets/bg1.jpg" width="100%" />
       <div class="sub_info">
         <div class="column_name">
-          <h2>本系简介</h2>
+          <h2>新闻中心</h2>
         </div>
         <div class="column_seat">
           <el-breadcrumb :separator-icon="ArrowRight">
@@ -45,25 +77,17 @@ watch(
 
     <el-container>
       <!-- 左侧菜单栏 -->
+      <!-- :default-active="$router.currentRoute.value.path" -->
       <el-aside width="170px">
         <h2 class="mb-2">系部概况</h2>
         <el-menu
-          :default-active="$router.currentRoute.value.path"
+          :default-active="currentType"
           background-color="#f6f6f6"
           class="el-menu-vertical-demo"
           router
         >
-          <el-menu-item index="/department/dept/introduction">
-            <span>本系简介</span>
-          </el-menu-item>
-          <el-menu-item index="/department/dept/leadership">
-            <span>领导简介</span>
-          </el-menu-item>
-          <el-menu-item index="/department/dept/profession">
-            <span>专业设置</span>
-          </el-menu-item>
-          <el-menu-item index="/department/dept/achievement">
-            <span>十年成果展</span>
+          <el-menu-item v-for="item in menu" :key="item" :index="item.path">
+            <span>{{ item.meta }}</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -76,6 +100,7 @@ watch(
   </div>
 </template>
 
+<!-- 这个标签得写在style中才有用 -->
 <style>
 .el-breadcrumb__inner.is-link {
   font-weight: 500;
@@ -97,9 +122,9 @@ h2 {
   border-top: 10px solid #015ca1;
 }
 
-/* 去掉左侧边栏的右边框 */
+/* 左侧菜单栏 */
 .el-menu {
-  border-right: 0px;
+  border-right: 0px; /* 去掉左侧边栏的右边框 */
   height: 186px;
 
   .el-sub-menu {
@@ -109,21 +134,21 @@ h2 {
   .el-menu-item {
     height: 45px;
   }
-}
 
-/* 菜单栏中文字居中 */
-.el-menu-item * {
-  margin: 0 auto;
+  /* 菜单栏中文字居中 */
+  .el-menu-item * {
+    margin: 0 auto;
+  }
+
+  /* 鼠标悬停时样式 */
+  .el-menu-item:hover {
+    color: #fff;
+    background-color: #fa9d0a;
+  }
 }
 
 /* 菜单选中时样式 */
 .is-active {
-  color: #fff;
-  background-color: #fa9d0a;
-}
-
-/* 鼠标悬停时样式 */
-.el-menu-item:hover {
   color: #fff;
   background-color: #fa9d0a;
 }
@@ -149,7 +174,12 @@ h2 {
   height: 62px;
   padding-right: 50px;
   line-height: 62px;
-  background: linear-gradient(61deg, transparent 29px, #2980B9 29px, #0768B4 calc(100% - 29px));
+  background: linear-gradient(
+    61deg,
+    transparent 29px,
+    #2980b9 29px,
+    #0768b4 calc(100% - 29px)
+  );
   background-size: 100% 100%;
   background-repeat: no-repeat;
   color: white;

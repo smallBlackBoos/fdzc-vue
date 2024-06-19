@@ -1,12 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import router from "@/router";
+const { currentRoute } = useRouter();
 
-//通知公告
-const currentPage = ref(0);
+var articleType = null;
+const href = ref("");
+const currentPage = ref(1);
 const pageSize = ref(10);
-const newsList = ref({
+const showType = ref();
+const info = ref({
   total: 80,
-  records: [
+  rows: [
     { id: 1, date: "2024-06-15", title: "通知公告标题1" },
     { id: 2, date: "2024-06-14", title: "通知公告标题2" },
     { id: 3, date: "2024-06-13", title: "通知公告标题3" },
@@ -17,22 +22,52 @@ const newsList = ref({
     { id: 8, date: "2024-06-14", title: "通知公告标题8" },
     { id: 9, date: "2024-06-13", title: "通知公告标题9" },
     { id: 10, date: "2024-06-15", title: "通知公告标题10" },
-  ]
+  ],
 });
 
-const handleSizeChange = (val) => {
-  console.log(`${val} items per page`);
+// 声明一个异步函数
+import { articleListService } from "@/api/article.js";
+// 获取通过动态参数articleType查询分类
+const articleList = async (articleType) => {
+  let result = await articleListService(articleType);
+  info.value = result;
 };
+
 const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`);
+  let params = {
+    pageNum: val,
+    pageSize: pageSize.value,
+    articleType: articleType,
+  };
+  articleList(params); // 通过分类信息获取帖子
 };
+
+watch(
+  () => currentRoute.value,
+  (toRoute, fromRoute) => {
+    // http://127.0.0.1:5173/discipline_con/dc/2/details/1
+    href.value = router.currentRoute.value.fullPath + "/details/";
+    articleType = router.currentRoute.value.params.articleType; // 获取路径参数（文章类型）
+    showType.value = articleType;
+
+    let params = {
+      pageNum: currentPage.value,
+      pageSize: pageSize.value,
+      articleType: articleType,
+    };
+    articleList(params); // 通过分类信息获取帖子
+  },
+  { immediate: true } // 立即执行一次回调函数
+);
 </script>
+
 
 <template>
   <!-- 通知公告 -->
   <div class="news-list">
-    <div class="news-item" v-for="news in newsList.records" :key="news.id">
-      <a href="" class="news-title">{{ news.title }}</a>
+    <div class="news-item" v-for="news in info.rows" :key="news.id">
+      <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
+      <a :href="href + news.id" class="news-title">{{ news.title }}</a>
       <span class="news-time">{{ news.date }}</span>
     </div>
   </div>
@@ -44,8 +79,7 @@ const handleCurrentChange = (val) => {
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       layout="total, prev, pager, next"
-      :total="newsList.total"
-      @size-change="handleSizeChange"
+      :total="info.total"
       @current-change="handleCurrentChange"
     />
   </div>
@@ -82,15 +116,15 @@ const handleCurrentChange = (val) => {
 
 /* 分页条距离顶部20px */
 .pagination {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* 分页条居中 */
 .el-pagination {
-    justify-content: center;
+  justify-content: center;
 
-    .is-background .el-pager li{
-        border: 1px solid #aaa;
-    }
+  .is-background .el-pager li {
+    border: 1px solid #aaa;
+  }
 }
 </style>
