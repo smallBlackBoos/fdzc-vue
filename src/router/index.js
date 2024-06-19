@@ -142,7 +142,14 @@ const router = createRouter({
 //     }
 // });
 
-
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+    // 在跳转路由之前执行返回顶部操作
+    window.scrollTo({
+        top: 0
+    });
+    next(); // 继续导航
+});
 
 // 导出路由
 export default router

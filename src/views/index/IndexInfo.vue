@@ -275,7 +275,7 @@ const handleCarouselChange = (index) => {
 //主体框架
 .main-container {
     flex: 1;
-    position: relative;
+    position: sticky;
     display: flex;
 }
 
