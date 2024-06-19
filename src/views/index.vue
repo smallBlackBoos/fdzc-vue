@@ -315,8 +315,8 @@ const goToWebsite = (website) => {
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 20px;
+    right: 20px;
     padding: 10xp 20px;
     border: none;
     background: linear-gradient(to right, #2980B9, #0768B4);
