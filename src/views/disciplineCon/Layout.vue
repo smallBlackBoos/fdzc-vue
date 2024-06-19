@@ -13,7 +13,6 @@ const menu = ref([
   { path: "/discipline_con/dc/14", meta: "实践教学" },
   { path: "/discipline_con/dc/15", meta: "质量工程" },
   { path: "/discipline_con/dc/details/16", meta: "教学成果奖" },
-           
 ]);
 
 const breadcrumbItems = ref([]);
@@ -25,8 +24,7 @@ watch(
     console.log(toRoute.matched);
     let articleType = router.currentRoute.value.params.articleType; // 获取路径参数
     menu.value.forEach((item) => {
-      // const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
-      const match = item.path.match(/^(?:.*?\/){2}(\d+)/); // 匹配第三个斜杠后面的数字
+      const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
       if (match && match[1] === articleType.toString()) {
         toRoute.matched[2].path = "/discipline_con/dc/" + articleType;
         toRoute.matched[2].meta.title = item.meta;
@@ -78,7 +76,6 @@ watch(
       <el-aside width="170px">
         <h2 class="mb-2">学科建设</h2>
         <el-menu
-
           :default-active="currentType"
           background-color="#f6f6f6"
           class="el-menu-vertical-demo"

@@ -1,51 +1,50 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import router from "@/router";
 const { currentRoute } = useRouter();
 
 // 发送请求通过动态参数的articType
 // 声明一个异步函数
-import { articleListService } from "@/api/article.js";
+import { articleTypeListService } from "@/api/article.js";
 
 const detail = ref({
-  articleTitle: '十年成果奖',
+  articleTitle: '本系简介',
   createTime: '2024-06-15 22:54:51',
   articleContent: '内容'
 });
 
-
 // 获取通过动态参数articleType查询文章
-const article = async () => {
+const articleTypeList = async () => {
   let articleType = router.currentRoute.value.params.articleType;
 
-  let params = {
-      articleType: articleType,
-  };
-
-  let result = await articleListService(params);
-  detail.value = result.rows[0];
+  let result = await articleTypeListService(articleType);
+  detail.value = result.data.rows[0];
+  console.log(detail.value);
 };
 
 watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
-    article();
+    articleTypeList();
   },
   { immediate: true } // 立即执行一次回调函数
 );
 </script>
 
 <template>
+  <!-- 标题 -->
   <h1 class="title">{{ detail.articleTitle }}</h1>
+  
+  <!-- 时间 -->
   <div class="time">
     <span>{{ detail.createTime }}</span>
   </div>
   
-  <div class="content">
-    {{ detail.articleContent }}
-  </div>
+  <!-- 内容 -->
+  <div v-html="detail.articleContent"></div>
 </template>
+
 
 <style lang="scss" scoped>
   .title {

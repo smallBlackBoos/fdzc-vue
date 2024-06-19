@@ -1,25 +1,38 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import router from "@/router";
+const { currentRoute } = useRouter();
 
-// 发送请求通过动态参数的id
+// 发送请求通过动态参数的articType
 // 声明一个异步函数
-import { articleService } from "@/api/article.js";
+import { articleListService } from "@/api/article.js";
 
 const detail = ref({
-  articleTitle: '标题',
+  articleTitle: '二十大专题学习',
   createTime: '2024-06-15 22:54:51',
   articleContent: '内容'
 });
 
-// 获取通过动态参数id查询文章
+// 获取通过动态参数articleType查询文章
 const article = async () => {
-  let articleType = router.currentRoute.value.params.id;
-  let result = await articleService(articleType);
-  detail.value = result;
+  let articleType = router.currentRoute.value.params.articleType;
+
+  let params = {
+      articleType: articleType,
+  };
+
+  let result = await articleListService(params);
+  detail.value = result.rows[0];
 };
 
-article();
+watch(
+  () => currentRoute.value,
+  (toRoute, fromRoute) => {
+    article();
+  },
+  { immediate: true } // 立即执行一次回调函数
+);
 </script>
 
 <template>
@@ -32,6 +45,7 @@ article();
     {{ detail.articleContent }}
   </div>
 </template>
+
 
 <style lang="scss" scoped>
   .title {
