@@ -324,19 +324,19 @@ const goToWebsite = (website) => {
 }
 /* Back to Top Button */
 .back-to-top {
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  padding: 10xp 20px;
-  border: none;
-  background: linear-gradient(to right, #2980b9, #0768b4);
-  color: white;
-  font-size: 16px;
-  //display: none;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-  transition: transform 0.3s ease; /* 添加 transform 过渡 */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10xp 20px;
+    border: none;
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    color: white;
+    font-size: 16px;
+    //display: none;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: transform 0.3s ease; /* 添加 transform 过渡 */
 }
 
 .back-to-top:hover {
