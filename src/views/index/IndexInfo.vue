@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
 
 // 轮播大图数组
@@ -8,6 +8,8 @@ const carouselItems = ref([]);
 const newsItems = ref([])
 //名师荟萃
 const teacherData = ref([]);
+//特色课程
+const subjectData = ref([]);
 //办学成果
 const ResultData = ref([]);
 
@@ -47,70 +49,79 @@ newsList();
 //名师荟萃
 const teacherList = async () => {
     try {
-        let result = await IndexListService("1", "4");
+        let result = await articleTypeListService(501);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
-        teacherData.value = result.data.data;
-        console.log(result.data.data);
+        teacherData.value = result.data.rows;
+        console.log(teacherData.value);
     } catch (error) {
         console.error("Error fetching data: ", error);
     }
 }
 teacherList();
-//办学成果
-const ResultList = async () => {
+const truncatedteacherData = computed(() => teacherData.value.slice(0, 4));
+
+//特色课程
+const subjectList = async () => {
     try {
-        let result = await IndexListService("1", "4");
+        let result = await articleTypeListService(401);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
-        ResultData.value = result.data.data;
-        console.log(result.data.data);
+        subjectData.value = result.data.rows;
+        console.log(subjectData.value);
     } catch (error) {
         console.error("Error fetching data: ", error);
     }
 }
-ResultList();
+subjectList();
+const truncatedsubjectData = computed(() => subjectData.value.slice(0, 5));
 
-//简介省略过多的字
-const truncateDescription = (text, maxLength) => {
-    if (text.length > maxLength) {
-        return text.substring(0, maxLength - 3) + '...';
-    } else {
-        return text;
+//办学成果
+const resultList = async () => {
+    try {
+        let result = await articleTypeListService(401);
+        // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
+        ResultData.value = result.data.rows;
+        console.log(ResultData.value);
+    } catch (error) {
+        console.error("Error fetching data: ", error);
     }
-};
+}
+resultList();
+const truncatedResultData = computed(() => ResultData.value.slice(0, 4));
 
-const truncateDescription1 = (text, maxLength) => {
-    if (text.length > maxLength) {
-        return text.substring(0, maxLength - 3) ;
-    } else {
-        return text;
-    }
-};
+//路由跳转
 const router = useRouter();
 const handleClick = (link) => {
     router.push(link);
 };
-//每行两个
-const getRows = (data) => {
-    const rows = [];
-    for (let i = 0; i < data.length; i += 2) {
-        rows.push(data.slice(i, i + 2));
-    }
-    return rows;
+//获取图片完整url
+const serverBaseUrl = 'http://47.120.31.153:8085';
+const getImageSrc = (path: string) => {
+    return `${serverBaseUrl}${path}`;
 };
-//每行四个
-const getRows1 = (data,itemsPerRow) => {
+//简介省略过多的字
+const truncateDescription = (text, maxLength, addOther) => {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength - 3) + addOther;
+    } else {
+        return text;
+    }
+};
+//每行i个
+const getRows = (data, itemsPerRow) => {
     const rows = [];
     for (let i = 0; i < data.length; i += itemsPerRow) {
         rows.push(data.slice(i, i + itemsPerRow));
     }
     return rows;
 };
-//一行走马灯卡片
-const isDarkBackground = ref(false);
-const handleCarouselChange = (index) => {
-    console.log('Carousel index changed to:', index);
-    isDarkBackground.value = !isDarkBackground.value; // 切换背景颜色状态
-};
+// 拆分年月日
+const formatTime = (time) => {
+    const date = new Date(time);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}/${month}/${day}`;
+}
 
 </script>
 
@@ -125,8 +136,8 @@ const handleCarouselChange = (index) => {
                             <div class="include">
                                 <div class="include-section">
                                     <div class="text-section">
-<!--                                     <h3>{{ item.title }}</h3>-->
-                                        <p>{{ truncateDescription(item.description,150)}}</p>
+                                        <!--                                     <h3>{{ item.title }}</h3>-->
+                                        <p>{{ truncateDescription(item.description, 150, '...') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +150,8 @@ const handleCarouselChange = (index) => {
             </div>
         </el-header>
         <el-container class="main-container">
+            <!--名师荟萃-->
             <el-main class="block block-1">
-                <!--名师荟萃-->
                 <el-row>
                     <el-col>
                         <div>
@@ -148,24 +159,28 @@ const handleCarouselChange = (index) => {
                                 <el-text class="aside-title">
                                     名师荟萃
                                 </el-text>
-                                <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')" >更多 +</el-button>
+                                <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
                             </el-space>
                         </div>
                     </el-col>
                     <el-col>
                         <div class="card-container">
-                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows(teacherData)" :key="rowIndex"
+                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows(truncatedteacherData,2)"
+                                    :key="rowIndex"
                                     style="margin-top: 30px;">
                                 <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card" @click="() => handleClick(teacher.link)">
+                                    <el-card class="profile-card" @click="() => handleClick('')">
                                         <div class="profile-content">
-                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+                                            <img :src="getImageSrc(teacher.articleCover)" class="profile-image"
+                                                 alt="Profile Image"/>
                                             <div class="profile-text">
                                                 <div class="card-name">
-                                                    <span>{{ teacher.title }}</span>
+                                                    <span>{{ teacher.articleTitle }}</span>
                                                 </div>
                                                 <div class="card-info">
-                                                    <span>{{ truncateDescription(teacher.description, 100) }}</span>
+                                                    <span>{{
+                                                            truncateDescription(teacher.articleDescription, 50, '...')
+                                                        }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,28 +191,30 @@ const handleCarouselChange = (index) => {
                     </el-col>
                 </el-row>
             </el-main>
+            <!-- 新闻公告列表 -->
             <el-aside class="block block-2">
-                <!-- 标题栏-->
                 <el-col>
                     <div>
                         <el-space class="aside-header" alignment="center" style="width: 100%;">
                             <el-text class="aside-title">
                                 新闻公告
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/news/n/4')">更多 +
+                            </el-button>
                         </el-space>
                     </div>
-                    <!-- 新闻公告列表 -->
                     <div class="news-list">
                         <div class="news-item" v-for="news in newsItems" :key="news.id">
-                            <span class="news-time">{{ truncateDescription1(news.createTime,13) }}</span>
-                            <span class="news-title">{{ truncateDescription(news.articleTitle, 17) }}</span>
+                            <span class="news-time">{{ formatTime(news.createTime) }}</span>
+                            <span class="news-title">{{ truncateDescription(news.articleTitle, 17, '...') }}</span>
                         </div>
                     </div>
                 </el-col>
             </el-aside>
         </el-container>
+
         <el-container class="main-container" style="margin-top: -30px">
+            <!--特色课程-->
             <el-row class="block block-1">
                 <el-col>
                     <div>
@@ -205,23 +222,26 @@ const handleCarouselChange = (index) => {
                             <el-text class="aside-title">
                                 特色课程
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
                 <el-col style="margin-top: 30px">
                     <el-carousel :interval="4000" type="card" height="300px">
-                        <el-carousel-item v-for="(teacher, index) in teacherData" :key="index">
+                        <el-carousel-item v-for="(subject, index) in truncatedsubjectData" :key="index">
                             <div class="card-container">
-                                <el-card class="profile-card" @click="() => handleClick(teacher.link)" shadow="hover">
+                                <el-card class="profile-card" @click="() => handleClick('')" shadow="hover">
                                     <div class="profile-content">
-                                        <img :src="teacher.image" class="profile-image" alt="Profile Image"/>
+                                        <img :src="getImageSrc(subject.articleCover)" class="profile-image"
+                                             alt="Profile Image"/>
                                         <div class="profile-text">
                                             <div class="card-name">
-                                                <span>{{ teacher.title }}</span>
+                                                <span>{{ subject.articleTitle }}</span>
                                             </div>
                                             <div class="card-info">
-                                                <span>{{ truncateDescription(teacher.description, 100) }}</span>
+                                                <span>{{
+                                                        truncateDescription(subject.articleDescription, 50, '...')
+                                                    }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -233,6 +253,7 @@ const handleCarouselChange = (index) => {
             </el-row>
         </el-container>
         <el-container class="main-container" style="margin-top: -100px">
+            <!--办学成功-->
             <el-row class="block block-1">
                 <el-col>
                     <div>
@@ -240,24 +261,28 @@ const handleCarouselChange = (index) => {
                             <el-text class="aside-title">
                                 办学成果
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/department/dept/introduction')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
                 <el-container>
                     <el-col>
                         <div class="card-container">
-                            <el-row :gutter="10" v-for="(row, rowIndex) in getRows1(ResultData, 4)" :key="rowIndex" style="margin-top: 30px;">
+                            <el-row :gutter="10" v-for="(row, rowIndex) in getRows(truncatedResultData, 4)"
+                                    :key="rowIndex"
+                                    style="margin-top: 30px;">
                                 <el-col :span="6" v-for="(result, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card2" @click="() => handleClick(teacher.link)">
+                                    <el-card class="profile-card2" @click="() => handleClick('')">
                                         <div class="profile-content">
-<!--                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>-->
+                                            <!--                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>-->
                                             <div class="profile-text">
                                                 <div class="card-name">
-                                                    <span>{{ result.title }}</span>
+                                                    <span>{{ result.articleTitle }}</span>
                                                 </div>
                                                 <div class="card-info">
-                                                    <span>{{ truncateDescription(result.description, 100) }}</span>
+                                                    <span>{{
+                                                            truncateDescription(result.articleDescription, 100, '...')
+                                                        }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -309,6 +334,7 @@ const handleCarouselChange = (index) => {
     }
 }
 
+//块状占比不同
 .block {
     flex: 1; /* 默认每个子元素平分容器空间 */
     padding: 10px; /* 子元素内边距 */
@@ -335,16 +361,13 @@ const handleCarouselChange = (index) => {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 30px;
-    //margin-bottom: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .aside-title {
     font-size: 20px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    //背景版渐变色
     background: linear-gradient(to right, #2980B9, #0768B4);
     -webkit-background-clip: text;
     color: transparent;
@@ -352,59 +375,62 @@ const handleCarouselChange = (index) => {
 }
 
 .more-button {
-    //background-color: #409EFF; /* 按钮背景颜色 */
-    color: #2980B9; /* 按钮文字颜色 */
-    border: none; /* 去掉按钮边框 */
-    padding: 5px 10px; /* 按钮内边距 */
-    cursor: pointer; /* 鼠标悬停时变成手型 */
+    color: #2980B9;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .news-list {
-    //max-height: 300px; /* 根据需要调整高度 */
-    overflow-y: auto; /* 垂直滚动 */
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .news-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0; /* 底部边框 */
-    transition: background-color 0.3s, color 0.3s; /* 动画效果 */
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .news-item:last-child {
-    border-bottom: none; /* 最后一个项目无边框 */
+    border-bottom: none;
 }
 
 .news-item:hover {
-    background: linear-gradient(to right, #2980B9, #0768B4); /* 悬停背景颜色 */
-     /* 悬停字体颜色 */
-    .news-time{
-        color: #FFFFFF;
-    }
-    .news-title{
-        color: #FFFFFF;
-    }
+    background: linear-gradient(to right, #2980B9, #0768B4);
+    color: #FFFFFF;
 }
 
 .news-time {
-    font-size: 12px;
-    color: #888; /* 时间颜色 */
+    font-size: 10px;
+    padding: 30px 0px;
+    position: relative; /* 相对定位 */
+    color: #888; /* 时间文字颜色 */
+    margin-right: 5px; /* 时间和标题之间的间距 */
 }
+
 
 .news-title {
     font-size: 16px;
-    color: #333; /* 标题颜色 */
+    color: #333;
     margin-left: 10px;
     flex-grow: 1;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; /* 省略过长文本 */
+    overflow: hidden;
+    position: relative;
+}
+
+
+.news-item:hover .news-time,
+.news-item:hover .news-title {
+    color: #FFFFFF;
 }
 
 //卡片效果
-//名师荟萃
+//名师荟萃、特色课程
 .card-container {
     display: flex;
     flex-direction: column;
@@ -484,6 +510,7 @@ const handleCarouselChange = (index) => {
     //white-space: nowrap; /* 强制不换行 */
 }
 
+
 //教学成果
 .profile-card2 {
     cursor: pointer;
@@ -555,7 +582,6 @@ const handleCarouselChange = (index) => {
     transform: scale(1.1); /* 图片放大效果 */
 }
 
-
 @media (min-width: 768px) and (max-width: 1199px) {
     .profile-content {
         flex-direction: column;
@@ -587,7 +613,8 @@ const handleCarouselChange = (index) => {
     flex: 1;
     background: linear-gradient(264deg, transparent 80px, #0768B4 80px, #2980B9 calc(100% - 80px));
 }
-.include-section{
+
+.include-section {
     background: linear-gradient(to right, #2980B9, #0768B4);
     padding: 40px;
     position: relative;
@@ -629,7 +656,6 @@ const handleCarouselChange = (index) => {
 
 }
 
-
 .carousel-image {
     width: calc(100% + 80px); /* Adjust to cover the overflow */
     height: 100%;
@@ -645,12 +671,7 @@ const handleCarouselChange = (index) => {
     transform: scale(1.05);
 }
 
-
 .demo-collapse {
     font-family: 'Arial', sans-serif; /* Set the default font for the collapse component */
 }
-
-
-/* Scale up on hover */
-
 </style>
