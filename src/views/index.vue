@@ -77,50 +77,50 @@ const goToWebsite = (website) => {
               </el-sub-menu>
               <el-sub-menu index="/news">
                 <template #title>新闻中心</template>
-                <el-menu-item index="/news/n/4" exact>通知公告</el-menu-item>
-                <el-menu-item index="/news/n/5" exact>最新动态</el-menu-item>
+                <el-menu-item index="/news/n/201" exact>通知公告</el-menu-item>
+                <el-menu-item index="/news/n/202" exact>最新动态</el-menu-item>
               </el-sub-menu>
               <el-sub-menu index="/party_building">
                 <template #title>党建专栏</template>
-                <el-menu-item index="/party_building/pb/6" exact>党规党纪</el-menu-item>
-                <el-menu-item index="/party_building/pb/7" exact>通知公告</el-menu-item>
-                <el-menu-item index="/party_building/pb/8" exact>荣誉展示</el-menu-item>
-                <el-menu-item index="/party_building/pb/9" exact>主题党日活动</el-menu-item>
-                <el-menu-item index="/party_building/pb/10" exact>榜样标兵</el-menu-item>
-                <el-menu-item index="/party_building/pb/details/11" exact>二十大专题学习</el-menu-item>
+                <el-menu-item index="/party_building/pb/301" exact>党规党纪</el-menu-item>
+                <el-menu-item index="/party_building/pb/302" exact>通知公告</el-menu-item>
+                <el-menu-item index="/party_building/pb/303" exact>荣誉展示</el-menu-item>
+                <el-menu-item index="/party_building/pb/304" exact>主题党日活动</el-menu-item>
+                <el-menu-item index="/party_building/pb/305" exact>榜样标兵</el-menu-item>
+                <el-menu-item index="/party_building/pb/306" exact>二十大专题学习</el-menu-item>
               </el-sub-menu>
               <el-sub-menu index="/discipline_con">
                 <template #title>学科建设</template>
-                <el-menu-item index="/discipline_con/dc/12" exact>本科培养</el-menu-item>
-                <el-menu-item index="/discipline_con/dc/13" exact>专升本培养</el-menu-item>
-                <el-menu-item index="/discipline_con/dc/14" exact>实践教学</el-menu-item>
-                <el-menu-item index="/discipline_con/dc/15" exact>质量工程</el-menu-item>
-                <el-menu-item index="/discipline_con/dc/details/16" exact>办学成果</el-menu-item>
+                <el-menu-item index="/discipline_con/dc/401" exact>本科培养</el-menu-item>
+                <el-menu-item index="/discipline_con/dc/402" exact>专升本培养</el-menu-item>
+                <el-menu-item index="/discipline_con/dc/403" exact>实践教学</el-menu-item>
+                <el-menu-item index="/discipline_con/dc/404" exact>质量工程</el-menu-item>
+                <el-menu-item index="/discipline_con/dc/details/405" exact>办学成果</el-menu-item>
               </el-sub-menu>
-              <el-sub-menu index="6">
+              <el-sub-menu index="teachers">
                 <template #title>师资队伍</template>
-                <el-menu-item index="6.1" exact>师资信息</el-menu-item>
-                <el-menu-item index="6.2" exact>学科带头人</el-menu-item>
-                <el-menu-item index="6.2" exact>辅导员简介</el-menu-item>
-                <el-menu-item index="6.2" exact>行政人员简介</el-menu-item>
+                <el-menu-item index="/teachers/t/501" exact>师资信息</el-menu-item>
+                <el-menu-item index="/teachers/t/502" exact>学科带头人</el-menu-item>
+                <el-menu-item index="/teachers/t/503" exact>辅导员简介</el-menu-item>
+                <el-menu-item index="/teachers/t/504" exact>行政人员简介</el-menu-item>
               </el-sub-menu>
-              <el-sub-menu index="7">
+              <el-sub-menu index="/educational">
                 <template #title>教务管理</template>
-                <el-menu-item index="7.1" exact>本科培养</el-menu-item>
-                <el-menu-item index="7.2" exact>专升本培养</el-menu-item>
+                <el-menu-item index="/educational/e/601" exact>教务信息</el-menu-item>
+                <el-menu-item index="/educational/e/602" exact>教学研讨</el-menu-item>
               </el-sub-menu>
-              <el-menu-item index="8">规章制度</el-menu-item>
-              <el-sub-menu index="9">
+              <el-menu-item index="/rules/r/701">规章制度</el-menu-item>
+              <el-sub-menu index="/student_work">
                 <template #title>学生工作</template>
-                <el-menu-item index="9.1" exact>团学工作</el-menu-item>
-                <el-menu-item index="9.2" exact>学科竞赛</el-menu-item>
-                <el-menu-item index="9.3" exact>考研动态</el-menu-item>
-                <el-menu-item index="9.4" exact>敏学大讲堂</el-menu-item>
+                <el-menu-item index="/student_work/s/801" exact>团学工作</el-menu-item>
+                <el-menu-item index="/student_work/s/details/802" exact>学科竞赛</el-menu-item>
+                <el-menu-item index="/student_work/s/803" exact>考研动态</el-menu-item>
+                <el-menu-item index="/student_work/s/804" exact>敏学大讲堂</el-menu-item>
               </el-sub-menu>
-              <el-sub-menu index="10">
+              <el-sub-menu index="/service_guide">
                 <template #title>办事指南</template>
-                <el-menu-item index="10.1" exact>教务指南</el-menu-item>
-                <el-menu-item index="11.1" exact>表格下载</el-menu-item>
+                <el-menu-item index="/service_guide/sg/901" exact>教务指南</el-menu-item>
+                <el-menu-item index="/service_guide/sg/902" exact>表格下载</el-menu-item>
               </el-sub-menu>
             </el-menu>
           </el-col>

@@ -17,12 +17,34 @@ import NList from "@/views/news/List.vue";
 import PartyBuildingLayout from "@/views/partyBuilding/Layout.vue";
 import PbDetails from "@/views/partyBuilding/Details.vue";
 import PbList from "@/views/partyBuilding/List.vue";
-import PbSingleDetails from "@/views/partyBuilding/SingleDetails.vue";
 // 学科建设组件
 import DisciplineConLayout from "@/views/disciplineCon/Layout.vue";
 import DpList from "@/views/disciplineCon/List.vue";
 import DpDetails from "@/views/disciplineCon/Details.vue";
 import DpSingleDetails from "@/views/disciplineCon/SingleDetails.vue";
+// 师资队伍
+import TeachersLayout from "@/views/teachers/Layout.vue";
+import TList from "@/views/teachers/StaffList.vue";
+import TDetails from "@/views/teachers/Details.vue";
+import TSingleDetails from "@/views/teachers/SingleDetails.vue";
+// 教务管理组件
+import EducationalLayout from "@/views/educational/Layout.vue";
+import EList from "@/views/educational/List.vue";
+import EDetails from "@/views/educational/Details.vue";
+// 规章制度组件
+import RulesLayout from "@/views/rules/Layout.vue";
+import RList from "@/views/rules/List.vue";
+import RDetails from "@/views/rules/Details.vue";
+// 学生工作组件
+import StudentWorkLayout from "@/views/studentWork/Layout.vue";
+import SList from "@/views/studentWork/List.vue";
+import SDetails from "@/views/studentWork/Details.vue";
+import SSingleDetails from "@/views/studentWork/SingleDetails.vue";
+// 办事指南组件
+import ServiceGuideLayout from "@/views/serviceGuide/Layout.vue";
+import SgList from "@/views/serviceGuide/List.vue";
+import SgDetails from "@/views/serviceGuide/Details.vue";
+// import SSingleDetails from "@/views/serviceGuide/SingleDetails.vue";
 
 
 // 定义路由关系
@@ -63,7 +85,6 @@ const routes = [
                 children: [
                     { path: 'pb/:articleType', component: PbList },                 // 文章列表
                     { path: 'pb/:articleType/details/:id', component: PbDetails },  // 文章详情
-                    { path: 'pb/details/:articleType', component: PbSingleDetails } // 单一文章展示
                 ]
             },
             {
@@ -75,6 +96,58 @@ const routes = [
                     { path: 'dc/:articleType', component: DpList },                 // 文章列表
                     { path: 'dc/:articleType/details/:id', component: DpDetails },  // 文章详情
                     { path: 'dc/details/:articleType', component: DpSingleDetails } // 单一文章展示
+                ]
+            },
+            {
+                path: 'teachers',
+                component: TeachersLayout,
+                meta: {title: "师资队伍"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 't/:articleType', component: TList },                 // 文章列表
+                    { path: 't/:articleType/details/:id', component: TDetails },  // 文章详情
+                    { path: 't/details/:articleType', component: TSingleDetails } // 单一文章展示
+                ]
+            },
+            {
+                path: 'educational',
+                component: EducationalLayout,
+                meta: {title: "教务管理"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 'e/:articleType', component: EList },                 // 文章列表
+                    { path: 'e/:articleType/details/:id', component: EDetails },  // 文章详情
+                ]
+            },
+            {
+                path: 'rules',
+                component: RulesLayout,
+                meta: {title: "规章制度"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 'r/:articleType', component: RList },                 // 文章列表
+                    { path: 'r/:articleType/details/:id', component: RDetails },  // 文章详情
+                ]
+            },
+            {
+                path: 'student_work',
+                component: StudentWorkLayout,
+                meta: {title: "学生工作"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 's/:articleType', component: SList },                 // 文章列表
+                    { path: 's/:articleType/details/:id', component: SDetails },  // 文章详情
+                    { path: 's/details/:articleType', component: SSingleDetails } // 单一文章展示
+                ]
+            },
+            {
+                path: 'service_guide',
+                component: ServiceGuideLayout,
+                meta: {title: "办事指南"},
+                // redirect: 'party_building/announcements',
+                children: [
+                    { path: 'sg/:articleType', component: SgList },                 // 文章列表
+                    { path: 'sg/:articleType/details/:id', component: SgDetails },  // 文章详情
                 ]
             }
         ]

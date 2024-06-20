@@ -31,7 +31,7 @@ import { articleListService } from "@/api/article.js";
 const articleList = async (articleType) => {
   let result = await articleListService(articleType);
   info.value = result.data;
-  console.log(info.value)
+  console.log(info.value);
 };
 
 const handleCurrentChange = (val) => {
@@ -64,26 +64,28 @@ watch(
 
 
 <template>
-  <!-- 通知公告 -->
-  <div class="news-list">
-    <div class="news-item" v-for="news in info.rows" :key="news.articleId">
-      <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
-      <a :href="href + news.articleId" class="news-title">{{ news.articleTitle }}</a>
-      <span class="news-time">{{ news.createTime }}</span>
+    <!-- 通知公告 -->
+    <div class="news-list">
+      <div class="news-item" v-for="news in info.rows" :key="news.articleId">
+        <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
+        <a :href="href + news.articleId" class="news-title">{{
+          news.articleTitle
+        }}</a>
+        <span class="news-time">{{ news.createTime }}</span>
+      </div>
     </div>
-  </div>
 
-  <!-- 分页条 -->
-  <div class="pagination" v-if="info.total > 0">
-    <el-pagination
-      background
-      v-model:current-page="currentPage"
-      v-model:page-size="pageSize"
-      layout="total, prev, pager, next"
-      :total="info.total"
-      @current-change="handleCurrentChange"
-    />
-  </div>
+    <!-- 分页条 -->
+    <div class="pagination" v-if="info.total > 0">
+      <el-pagination
+        background
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        layout="total, prev, pager, next"
+        :total="info.total"
+        @current-change="handleCurrentChange"
+      />
+    </div>
 </template>
 
 <style lang="scss" scoped >

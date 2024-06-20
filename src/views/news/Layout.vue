@@ -8,8 +8,8 @@ const { currentRoute } = useRouter();
 
 // 左侧菜单栏数据
 const menu = ref([
-  { path: "/news/n/4", meta: "通知公告" },
-  { path: "/news/n/5", meta: "最新动态" },
+  { path: "/news/n/201", meta: "通知公告" },
+  { path: "/news/n/202", meta: "最新动态" },
 ]);
 
 const breadcrumbItems = ref([]);

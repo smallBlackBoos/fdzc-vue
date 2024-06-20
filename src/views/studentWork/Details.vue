@@ -24,15 +24,13 @@ articleInfo();
 </script>
 
 <template>
+  <!-- 标题 -->
   <h1 class="title">{{ details.articleTitle }}</h1>
+  <!-- 时间 -->
   <div class="time">
     <span>{{ details.createTime }}</span>
   </div>
-  
-  <!-- <div class="content">
-    {{ details.articleContent }}
-  </div> -->
-
+  <!-- 内容 -->
   <div class="content" v-html="details.articleContent"></div>
 </template>
 

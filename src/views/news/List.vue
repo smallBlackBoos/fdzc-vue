@@ -30,7 +30,9 @@ import { articleListService } from "@/api/article.js";
 // 获取通过动态参数articleType查询分类
 const articleList = async (articleType) => {
   let result = await articleListService(articleType);
-  info.value = result;
+  info.value = result.data;
+
+  console.log(info.value)
 };
 
 const handleCurrentChange = (val) => {
@@ -65,10 +67,10 @@ watch(
 <template>
   <!-- 通知公告 -->
   <div class="news-list">
-    <div class="news-item" v-for="news in info.rows" :key="news.id">
+    <div class="news-item" v-for="news in info.rows" :key="news.articleId">
       <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
-      <a :href="href + news.id" class="news-title">{{ news.title }}</a>
-      <span class="news-time">{{ news.date }}</span>
+      <a :href="href + news.articleId" class="news-title">{{ news.articleTitle }}</a>
+      <span class="news-time">{{ news.createTime }}</span>
     </div>
   </div>
 
@@ -103,6 +105,7 @@ watch(
   text-decoration: none;
   color: #0e0e0e;
   font-size: 1.25rem;
+  width: 70%;
 }
 
 .news-title:hover {

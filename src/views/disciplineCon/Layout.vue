@@ -8,11 +8,11 @@ const { currentRoute } = useRouter();
 
 // 左侧菜单栏数据
 const menu = ref([
-  { path: "/discipline_con/dc/12", meta: "本科培养" },
-  { path: "/discipline_con/dc/13", meta: "专升本培养" },
-  { path: "/discipline_con/dc/14", meta: "实践教学" },
-  { path: "/discipline_con/dc/15", meta: "质量工程" },
-  { path: "/discipline_con/dc/details/16", meta: "教学成果奖" },
+  { path: "/discipline_con/dc/401", meta: "本科培养" },
+  { path: "/discipline_con/dc/402", meta: "专升本培养" },
+  { path: "/discipline_con/dc/403", meta: "实践教学" },
+  { path: "/discipline_con/dc/404", meta: "质量工程" },
+  { path: "/discipline_con/dc/details/405", meta: "教学成果奖" },
 ]);
 
 const breadcrumbItems = ref([]);

@@ -1,3 +1,5 @@
+<!-- 教务信息 -->
+
 <script setup>
 import { ref, watch } from "vue";
 import { ArrowRight } from "@element-plus/icons-vue";
@@ -8,46 +10,39 @@ const { currentRoute } = useRouter();
 
 // 左侧菜单栏数据
 const menu = ref([
-  { path: "/department/dept/details/101", meta: "本系简介" },
-  { path: "/department/dept/details/102", meta: "领导简介" },
-  { path: "/department/dept/speciality", meta: "专业设置" },
-  { path: "/department/dept/details/104", meta: "十年成果展" },
+  { path: "/rules/r/701", meta: "规章制度" },
 ]);
 
 const breadcrumbItems = ref([]);
-const currentType = ref(""); // 当前选中的类型（路径）
+const currentType = ref("");  // 当前选中的类型（路径）
 
 watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
-    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数 
+    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数
 
-    if (articleType != null) {
-      menu.value.forEach((item) => {
-        const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
-        if (match && match[1] === articleType.toString()) {
-          toRoute.matched[2].path = "/department/dept/details/" + articleType;
-          toRoute.matched[2].meta.title = item.meta;
-        }
-      });
-    } else {
-      menu.value.forEach((item) => {
-        const match = item.path.match(/(\/)([^\/]*)$/); // 匹配最后一个斜杠后面的数字
-        console.log(match)
-        if (match && match[2] == "speciality") {
-          toRoute.matched[2].path = item.path;
-          toRoute.matched[2].meta.title = item.meta;
-        }
-      });
-    }
-    // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
+    let menuSize = menu.value.length; // 菜单长度
     toRoute.matched[1].path = menu.value[0].path; // 手动修改第2层路由为，默认路由
+    // toRoute.matched[1].meta.title = menu.value[0].meta;
+    if (menuSize > 1) {
+        for (let i = 0; i < menu.value.length; i++) {
+        let match = menu.value[i].path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
+        if (match && match[1] === articleType.toString()) {
+          toRoute.matched[2].path = "/rules/r/" + articleType;
+          toRoute.matched[2].meta.title = menu.value[i].meta;
+        }
+      }
+    }
+
+    // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
+    // toRoute.matched[1].path = "/rules/r/701"; // 手动修改第2层路由为，默认路由
+    // toRoute.matched[1].meta = {title: "规章制度"}; // 手动修改第2层路由为，默认路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,
       meta: item.meta || {}, // 确保meta存在，避免undefined
     }));
 
-    currentType.value = breadcrumbItems.value[2].path;
+    currentType.value = breadcrumbItems.value[2].path
   },
   { immediate: true } // 立即执行一次回调函数
 );
@@ -59,7 +54,7 @@ watch(
       <img src="../../assets/bg1.jpg" width="100%" />
       <div class="sub_info">
         <div class="column_name">
-          <h2>系部概况</h2>
+          <h2>规章制度</h2>
         </div>
         <div class="column_seat">
           <el-breadcrumb :separator-icon="ArrowRight">
@@ -78,8 +73,8 @@ watch(
     <el-container>
       <!-- 左侧菜单栏 -->
       <!-- :default-active="$router.currentRoute.value.path" -->
-      <el-aside width="170px">
-        <h2 class="mb-2">系部概况</h2>
+      <!-- <el-aside width="170px">
+        <h2 class="mb-2">规章制度</h2>
         <el-menu
           :default-active="currentType"
           background-color="#f6f6f6"
@@ -90,7 +85,7 @@ watch(
             <span>{{ item.meta }}</span>
           </el-menu-item>
         </el-menu>
-      </el-aside>
+      </el-aside> -->
 
       <!-- 右侧内容面板 -->
       <el-main>
@@ -125,7 +120,6 @@ h2 {
 /* 左侧菜单栏 */
 .el-menu {
   border-right: 0px; /* 去掉左侧边栏的右边框 */
-  height: 186px;
 
   .el-sub-menu {
     height: 45px;

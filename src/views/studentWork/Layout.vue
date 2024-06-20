@@ -8,46 +8,41 @@ const { currentRoute } = useRouter();
 
 // 左侧菜单栏数据
 const menu = ref([
-  { path: "/department/dept/details/101", meta: "本系简介" },
-  { path: "/department/dept/details/102", meta: "领导简介" },
-  { path: "/department/dept/speciality", meta: "专业设置" },
-  { path: "/department/dept/details/104", meta: "十年成果展" },
+  { path: "/student_work/s/801", meta: "团学工作" },
+  { path: "/student_work/s/details/802", meta: "学科竞赛" },
+  { path: "/student_work/s/803", meta: "考研动态" },
+  { path: "/student_work/s/804", meta: "敏学大讲堂" },
 ]);
 
 const breadcrumbItems = ref([]);
-const currentType = ref(""); // 当前选中的类型（路径）
+const currentType = ref("");  // 当前选中的类型（路径）
 
 watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
-    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数 
+    console.log(toRoute.matched);
+    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数
+    menu.value.forEach((item) => {
+      const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
+      if (match && match[1] === articleType.toString()) {
+        toRoute.matched[2].path = "/student_work/s/" + articleType;
+        toRoute.matched[2].meta.title = item.meta;
+      }
+    });
 
-    if (articleType != null) {
-      menu.value.forEach((item) => {
-        const match = item.path.match(/\/(\d+)$/); // 匹配最后一个斜杠后面的数字
-        if (match && match[1] === articleType.toString()) {
-          toRoute.matched[2].path = "/department/dept/details/" + articleType;
-          toRoute.matched[2].meta.title = item.meta;
-        }
-      });
-    } else {
-      menu.value.forEach((item) => {
-        const match = item.path.match(/(\/)([^\/]*)$/); // 匹配最后一个斜杠后面的数字
-        console.log(match)
-        if (match && match[2] == "speciality") {
-          toRoute.matched[2].path = item.path;
-          toRoute.matched[2].meta.title = item.meta;
-        }
-      });
-    }
     // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
+    // toRoute.matched[1].path = "/discipline_con/dc/12"; // 手动修改第2层路由为，默认路由
     toRoute.matched[1].path = menu.value[0].path; // 手动修改第2层路由为，默认路由
+    // toRoute.matched[2].path = "/discipline_con/dc/16/details/10"; // 手动修改“教学成果奖”路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,
       meta: item.meta || {}, // 确保meta存在，避免undefined
     }));
 
     currentType.value = breadcrumbItems.value[2].path;
+    console.log( currentType.value);
+
+    // console.log("发送请求id为：" + articleType);
   },
   { immediate: true } // 立即执行一次回调函数
 );
@@ -59,7 +54,7 @@ watch(
       <img src="../../assets/bg1.jpg" width="100%" />
       <div class="sub_info">
         <div class="column_name">
-          <h2>系部概况</h2>
+          <h2>学生工作</h2>
         </div>
         <div class="column_seat">
           <el-breadcrumb :separator-icon="ArrowRight">
@@ -79,7 +74,7 @@ watch(
       <!-- 左侧菜单栏 -->
       <!-- :default-active="$router.currentRoute.value.path" -->
       <el-aside width="170px">
-        <h2 class="mb-2">系部概况</h2>
+        <h2 class="mb-2">学生工作</h2>
         <el-menu
           :default-active="currentType"
           background-color="#f6f6f6"
@@ -100,7 +95,6 @@ watch(
   </div>
 </template>
 
-<!-- 这个标签得写在style中才有用 -->
 <style>
 .el-breadcrumb__inner.is-link {
   font-weight: 500;

@@ -1,10 +1,10 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { ref } from "vue";
 import router from "@/router";
 
 // 发送请求通过动态参数的id
 // 声明一个异步函数
-import { articleInfoService } from "@/api/article.js";
+import { articleService } from "@/api/article.js";
 
 const details = ref({
   articleTitle: '标题',
@@ -13,26 +13,24 @@ const details = ref({
 });
 
 // 获取通过动态参数id查询文章
-const articleInfo = async () => {
-  let id = router.currentRoute.value.params.id;
-  let result = await articleInfoService(id);
+const article = async () => {
+  let articleId = router.currentRoute.value.params.id;
+  let result = await articleService(articleId);
   details.value = result.data.data;
   console.log(details.value)
 };
 
-articleInfo();
+article();
 </script>
 
 <template>
+  <!-- 标题 -->
   <h1 class="title">{{ details.articleTitle }}</h1>
+  <!-- 时间 -->
   <div class="time">
     <span>{{ details.createTime }}</span>
   </div>
-  
-  <!-- <div class="content">
-    {{ details.articleContent }}
-  </div> -->
-
+  <!-- 内容 -->
   <div class="content" v-html="details.articleContent"></div>
 </template>
 

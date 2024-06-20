@@ -8,12 +8,13 @@ const { currentRoute } = useRouter();
 
 // 左侧菜单栏数据
 const menu = ref([
-  { path: "/party_building/pb/6", meta: "党规党纪" },
-  { path: "/party_building/pb/7", meta: "通知公告" },
-  { path: "/party_building/pb/8", meta: "荣誉展示" },
-  { path: "/party_building/pb/9", meta: "主题党日活动" },
-  { path: "/party_building/pb/10", meta: "榜样标兵" },
-  { path: "/party_building/pb/details/11", meta: "二十大专题学习" },
+  { path: "/party_building/pb/301", meta: "党规党纪" },
+  { path: "/party_building/pb/302", meta: "通知公告" },
+  { path: "/party_building/pb/303", meta: "荣誉展示" },
+  { path: "/party_building/pb/304", meta: "主题党日活动" },
+  { path: "/party_building/pb/305", meta: "榜样标兵" },
+  // { path: "/party_building/pb/details/306", meta: "二十大专题学习" },
+  { path: "/party_building/pb/306", meta: "二十大专题学习" },
 ]);
 
 const breadcrumbItems = ref([]);
@@ -38,7 +39,9 @@ watch(
       meta: item.meta || {}, // 确保meta存在，避免undefined
     }));
 
-    currentType.value = breadcrumbItems.value[2].path
+    currentType.value = breadcrumbItems.value[2].path;
+
+    console.log(breadcrumbItems.value)
   },
   { immediate: true } // 立即执行一次回调函数
 );
