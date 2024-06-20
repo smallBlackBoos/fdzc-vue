@@ -25,7 +25,7 @@ import { articleTypeListService } from "@/api/article.js";
 const articleTypeList = async (articleType) => {
   let result = await articleTypeListService(articleType);
   staff.value = result.data;
-  console.log(teachers.value);
+  console.log(staff.value);
 };
 
 // dept/speciality/details/:id

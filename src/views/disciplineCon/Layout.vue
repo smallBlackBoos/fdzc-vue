@@ -32,7 +32,8 @@ watch(
     });
 
     // 通常，我们只需要toRoute.matched，因为它包含了当前路由及其所有父路由的信息
-    toRoute.matched[1].path = "/discipline_con/dc/12"; // 手动修改第2层路由为，默认路由
+    // toRoute.matched[1].path = "/discipline_con/dc/12"; // 手动修改第2层路由为，默认路由
+    toRoute.matched[1].path = menu.value[0].path;
     // toRoute.matched[2].path = "/discipline_con/dc/16/details/10"; // 手动修改“教学成果奖”路由
     breadcrumbItems.value = toRoute.matched.map((item) => ({
       path: item.path,

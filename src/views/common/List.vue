@@ -9,20 +9,25 @@ const href = ref("");
 const currentPage = ref(1);
 const pageSize = ref(10);
 const showType = ref();
+// const info = ref({
+//   total: 80,
+//   rows: [
+//     { id: 1, date: "2024-06-15", title: "通知公告标题1" },
+//     { id: 2, date: "2024-06-14", title: "通知公告标题2" },
+//     { id: 3, date: "2024-06-13", title: "通知公告标题3" },
+//     { id: 4, date: "2024-06-15", title: "通知公告标题4" },
+//     { id: 5, date: "2024-06-14", title: "通知公告标题5" },
+//     { id: 6, date: "2024-06-13", title: "通知公告标题6" },
+//     { id: 7, date: "2024-06-15", title: "通知公告标题7" },
+//     { id: 8, date: "2024-06-14", title: "通知公告标题8" },
+//     { id: 9, date: "2024-06-13", title: "通知公告标题9" },
+//     { id: 10, date: "2024-06-15", title: "通知公告标题10" },
+//   ],
+// });
+
 const info = ref({
-  total: 80,
-  rows: [
-    { id: 1, date: "2024-06-15", title: "通知公告标题1" },
-    { id: 2, date: "2024-06-14", title: "通知公告标题2" },
-    { id: 3, date: "2024-06-13", title: "通知公告标题3" },
-    { id: 4, date: "2024-06-15", title: "通知公告标题4" },
-    { id: 5, date: "2024-06-14", title: "通知公告标题5" },
-    { id: 6, date: "2024-06-13", title: "通知公告标题6" },
-    { id: 7, date: "2024-06-15", title: "通知公告标题7" },
-    { id: 8, date: "2024-06-14", title: "通知公告标题8" },
-    { id: 9, date: "2024-06-13", title: "通知公告标题9" },
-    { id: 10, date: "2024-06-15", title: "通知公告标题10" },
-  ],
+  total: 0,
+  rows: [],
 });
 
 // 声明一个异步函数
@@ -47,8 +52,9 @@ watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
     // http://127.0.0.1:5173/discipline_con/dc/2/details/1
-    href.value = router.currentRoute.value.fullPath + "/details/";
     articleType = router.currentRoute.value.params.articleType; // 获取路径参数（文章类型）
+    
+    href.value = router.currentRoute.value.fullPath + "/details/";
     showType.value = articleType;
 
     let params = {
@@ -62,9 +68,8 @@ watch(
 );
 </script>
 
-
 <template>
-  <!-- 通知公告 -->
+  <!-- 列表 -->
   <div class="news-list">
     <div class="news-item" v-for="news in info.rows" :key="news.articleId">
       <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
