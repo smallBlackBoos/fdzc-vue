@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
+import {ref, onMounted, onUnmounted} from "vue";
+import {useRouter} from "vue-router";
 
 const activeIndex = ref("/index");
 const handleSelect = (key: string) => {
-  router.push(key);
+    router.push(key);
 };
 const router = useRouter();
 // 返回顶部
-const isFixed = ref(false);
 const showBackToTop = ref(false);
-const fixedName = ref(null);
+const isFixed = ref(false);  // 默认关闭吸顶效果
+// const fixedName = ref(null);
 const menu = ref(0);        // 导航条距离文档顶部的位置
 // 导航条样式（默认样式为白底蓝字）
 const menuStyle = ref({
@@ -19,7 +19,7 @@ const menuStyle = ref({
 });  
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top: 0, behavior: "smooth"});
 };
 
 const handleScroll = () => {
@@ -63,12 +63,12 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("scroll", handleScroll);
 });
 
 // 访问外部网址
 const goToWebsite = (website) => {
-  window.location.href = website;
+    window.location.href = website;
 };
 </script>
 
@@ -76,7 +76,6 @@ const goToWebsite = (website) => {
   <el-container class="page-container">
     <!-- header-line-->
     <el-row class="header-line"> </el-row>
-    
       <div class="page-header">
         <!-- Header -->
         <el-header class="header">
@@ -165,201 +164,208 @@ const goToWebsite = (website) => {
           </el-row>
       </div>
     
-    <!-- Main -->
-    <el-main class="main-content">
-      <!-- <el-main class="main-content"> -->
-      <!-- 路由放置位置-->
-      <router-view></router-view>
-    </el-main>
-    <!--Footer-->
-    <el-footer class="footer">
-      <!-- 第一行 -->
-      <el-row class="footer-row">
-        <!-- 第一列 -->
-        <el-col :span="20">
-          <img src="../assets/logo.png" alt="Logo" class="header-image" />
-        </el-col>
-      </el-row>
-
-      <!-- 第二行 -->
-      <el-row>
-        <!-- 第一列 -->
-        <el-col>
-          <button
-            class="custom-button light"
-            @click="goToWebsite('https://www.fdzcxy.edu.cn/')"
-          >
-            学院官网
-          </button>
-          <button
-            style="margin: 15px"
-            class="custom-button light"
-            @click="goToWebsite('https://zsb.fdzcxy.edu.cn/')"
-          >
-            招生办
-          </button>
-        </el-col>
-        <!-- 第二列 -->
-        <el-col> 地址：福州鼓楼区杨桥西路50号福州大学至诚学院 </el-col>
-        <!-- 第三列 -->
-        <el-col> 邮箱：123456@gmail.com </el-col>
-      </el-row>
-
-      <!-- 第三行，与第二行结构相同 -->
-      <el-row>
-        <el-col>
-          <img
-            src="../assets/ygzh.jpg"
-            alt=""
-            style="height: 100px; margin-bottom: 10px"
-          />
-        </el-col>
-        <el-col> 院微信公众号 </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <img
-            src="../assets/xgzh.jpg"
-            alt=""
-            style="height: 100px; padding-right: 20px; margin-bottom: 10px"
-          />
-        </el-col>
-        <el-col> 系微信公众号 </el-col>
-      </el-row>
-    </el-footer>
-    <!-- 返回顶部的按钮 -->
-    <el-button
-      v-show="showBackToTop"
-      @click="scrollToTop"
-      class="back-to-top"
-      type="primary"
-    >
-      返回顶部
-    </el-button>
+      <!-- Main -->
+      <el-main class="main-content">
+        <!-- <el-main class="main-content"> -->
+        <!-- 路由放置位置-->
+        <router-view></router-view>
+      </el-main>
+      <!--Footer-->
+      <el-footer class="footer">
+          <!-- 第一行 -->
+          <el-row class="footer-row">
+              <!-- 第一列 -->
+              <el-col :span="20">
+                  <img src="../assets/logo.png" alt="Logo" class="header-image"/>
+              </el-col>
+          </el-row>
+          <!-- 第二行 -->
+          <el-row>
+              <!-- 第一列 -->
+              <el-col>
+                  <button
+                          class="custom-button light"
+                          @click="goToWebsite('https://www.fdzcxy.edu.cn/')"
+                  >
+                      学院官网
+                  </button>
+                  <button
+                          style="margin: 15px"
+                          class="custom-button light"
+                          @click="goToWebsite('https://zsb.fdzcxy.edu.cn/')"
+                  >
+                      招生办
+                  </button>
+                  <button
+                          class="custom-button light"
+                          @click="goToWebsite('https://www.720yun.com/vr/1b1jOseavO5')"
+                  >
+                      校园全景
+                  </button>
+              </el-col>
+              <!-- 第二列 -->
+              <el-col> 地址：福州鼓楼区杨桥西路50号福州大学至诚学院</el-col>
+              <!-- 第三列 -->
+              <el-col>Copyright 福州大学至诚学院计算机工程系 All Rights Reserved.</el-col>
+          </el-row>
+          <!-- 第三行，与第二行结构相同 -->
+          <el-row>
+              <el-col>
+                  <img
+                          src="../assets/ygzh.jpg"
+                          alt=""
+                          style="height: 100px; margin-bottom: 10px"
+                  />
+              </el-col>
+              <el-col> 院微信公众号</el-col>
+          </el-row>
+          <el-row>
+              <el-col>
+                  <img
+                          src="../assets/xgzh.jpg"
+                          alt=""
+                          style="height: 100px; padding-right: 20px; margin-bottom: 10px"
+                  />
+              </el-col>
+              <el-col> 系微信公众号</el-col>
+          </el-row>
+      </el-footer>
+      <!-- 返回顶部的按钮 -->
+      <el-button
+              v-show="showBackToTop"
+              @click="scrollToTop"
+              class="back-to-top"
+              type="primary"
+      >
+          返回顶部
+      </el-button>
   </el-container>
 </template>
 
 <style scoped lang="scss">
 .page-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: auto;
 }
 
 .page-header {
-  z-index: 1000; /* Ensure header is above other content */
+    z-index: 1000; /* Ensure header is above other content */
 }
 
 .el-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(to right, #2980b9, #0768b4);
-  padding: 20px;
-  height: 150px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(to right, #2980b9, #0768b4);
+    padding: 20px;
+    height: 150px;
 }
 
 .header-line {
-  height: 5px;
-  background-color: #ffd04b;
+    height: 5px;
+    background-color: #ffd04b;
 }
 
 .header-row {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
 }
 
 .header-col {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-image {
-  max-width: 100%;
-  height: auto;
-  max-height: 100px;
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
 }
 
 .header-search {
-  width: 100%;
-  max-width: 400px;
-  margin-left: auto;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 30px;
 }
 
 /* Sticky Menu */
 .menu {
-  position: sticky;
-  top: 150px;
-  z-index: 999;
-  background-color: #fff;
+    position: sticky;
+    top: 150px;
+    z-index: 999;
+    background-color: #fff;
 }
 
 .el-menu {
-  height: 50px;
-
-  .el-sub-menu,
-  .el-menu-item {
     height: 50px;
-  }
+
+    .el-sub-menu,
+    .el-menu-item {
+        height: 50px;
+    }
 }
 
 .el-header {
-  --el-header-padding: 0px;
+    --el-header-padding: 0px;
 }
 
 .el-menu-demo {
-  align-items: center;
-  justify-content: center;
-  border-bottom: 0;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0;
 }
 
 .main-content {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    height: 100%;
 }
 
 .el-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #d3dce6;
-  height: 200px;
-  background: linear-gradient(to right, #2980b9, #0768b4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #d3dce6;
+    height: 200px;
+    background: linear-gradient(to right, #2980b9, #0768b4);
 }
 
 .el-main {
-  padding: 0;
+    padding: 0;
 }
+
 .custom-button {
-  background-color: #f0f0f0; /* 浅色背景 */
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  outline: none;
-  transition: background-color 0.3s ease; /* 渐变效果 */
-  font-size: 16px;
-  color: #015ca1;
-  font-weight: bold;
+    background-color: #f0f0f0; /* 浅色背景 */
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s ease; /* 渐变效果 */
+    font-size: 16px;
+    color: #015ca1;
+    font-weight: bold;
 }
 
 .custom-button.light:hover {
-  background-color: #e0e0e0; /* 鼠标悬停时浅色变浅 */
+    background-color: #e0e0e0; /* 鼠标悬停时浅色变浅 */
 }
+
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
@@ -378,7 +384,7 @@ const goToWebsite = (website) => {
 }
 
 .back-to-top:hover {
-  transform: scale(1.1); /* 悬停时放大 */
+    transform: scale(1.1); /* 悬停时放大 */
 }
 
 // 导航栏吸顶效果

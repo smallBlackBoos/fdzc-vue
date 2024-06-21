@@ -20,7 +20,7 @@ const currentType = ref(""); // 当前选中的类型（路径）
 watch(
   () => currentRoute.value,
   (toRoute, fromRoute) => {
-    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数 
+    let articleType = router.currentRoute.value.params.articleType; // 获取路径参数
 
     if (articleType != null) {
       menu.value.forEach((item) => {
@@ -91,7 +91,6 @@ watch(
           </el-menu-item>
         </el-menu>
       </el-aside>
-
       <!-- 右侧内容面板 -->
       <el-main>
         <router-view></router-view>

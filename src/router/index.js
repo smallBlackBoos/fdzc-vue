@@ -144,25 +144,15 @@ const router = createRouter({
 })
 
 
-// 导航守卫
-// router.beforeEach((to, from, next) => {
-//     if (to.path === '/login') {
-//         // 如果是访问登录页，则直接放行
-//         next();
-//     } else {
-//         const tokenStore = useTokenStore();
-//         // 否则判断用户是否登录，根据实际情况进行判断
-//         const isLoggedIn = tokenStore.token
-//         if (isLoggedIn) {
-//             // 用户已登录，允许访问目标页
-//             next();
-//         } else {
-//             // 用户未登录，重定向到登录页
-//             next('/login');
-//         }
-//     }
-// });
-
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+    // 在跳转路由之前执行返回顶部操作
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    next(); // 继续导航
+});
 
 
 // 导出路由
