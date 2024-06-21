@@ -25,10 +25,10 @@ import {
 // 轮播大图数组
 const carouselList = async () => {
     try {
-        let result = await IndexListService("1", "5");
+        let result = await articleTypeListService(100);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
-        carouselItems.value = result.data.data;
-        console.log(result.data.data);
+        carouselItems.value = result.data.rows;
+        console.log(carouselItems.value);
     } catch (error) {
         console.error("Error fetching data: ", error);
     }
@@ -46,6 +46,7 @@ const newsList = async () => {
     }
 }
 newsList();
+const truncatednewsListData = computed(() => newsItems.value.slice(0, 6));
 //名师荟萃
 const teacherList = async () => {
     try {
@@ -77,7 +78,7 @@ const truncatedsubjectData = computed(() => subjectData.value.slice(0, 5));
 //办学成果
 const resultList = async () => {
     try {
-        let result = await articleTypeListService(401);
+        let result = await articleTypeListService(405);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         ResultData.value = result.data.rows;
         console.log(ResultData.value);
@@ -87,6 +88,8 @@ const resultList = async () => {
 }
 resultList();
 const truncatedResultData = computed(() => ResultData.value.slice(0, 4));
+
+
 
 //路由跳转
 const router = useRouter();
@@ -137,12 +140,12 @@ const formatTime = (time) => {
                                 <div class="include-section">
                                     <div class="text-section">
                                         <!--                                     <h3>{{ item.title }}</h3>-->
-                                        <p>{{ truncateDescription(item.description, 150, '...') }}</p>
+                                        <p>{{ truncateDescription(item.articleDescription, 150, '...') }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="image-section">
-                                <img :src="item.image" class="carousel-image" alt=""/>
+                                <img :src="getImageSrc(item.articleCover)" class="carousel-image" alt=""/>
                             </div>
                         </div>
                     </el-carousel-item>
@@ -159,7 +162,7 @@ const formatTime = (time) => {
                                 <el-text class="aside-title">
                                     名师荟萃
                                 </el-text>
-                                <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
+                                <el-button type="text" class="more-button" @click="handleClick('/teachers/t/501')">更多 +</el-button>
                             </el-space>
                         </div>
                     </el-col>
@@ -169,7 +172,7 @@ const formatTime = (time) => {
                                     :key="rowIndex"
                                     style="margin-top: 30px;">
                                 <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card" @click="() => handleClick('')">
+                                    <el-card class="profile-card" @click="() => handleClick('/teachers/t/501/details/'+ teacher.articleId)">
                                         <div class="profile-content">
                                             <img :src="getImageSrc(teacher.articleCover)" class="profile-image"
                                                  alt="Profile Image"/>
@@ -197,14 +200,14 @@ const formatTime = (time) => {
                     <div>
                         <el-space class="aside-header" alignment="center" style="width: 100%;">
                             <el-text class="aside-title">
-                                新闻公告
+                                通知公告
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/news/n/4')">更多 +
+                            <el-button type="text" class="more-button" @click="handleClick('/news/n/202')">更多 +
                             </el-button>
                         </el-space>
                     </div>
                     <div class="news-list">
-                        <div class="news-item" v-for="news in newsItems" :key="news.id">
+                        <div class="news-item" v-for="news in truncatednewsListData" :key="news.id" @click="() => handleClick('/news/n/202/details/'+ news.articleId)">
                             <span class="news-time">{{ formatTime(news.createTime) }}</span>
                             <span class="news-title">{{ truncateDescription(news.articleTitle, 17, '...') }}</span>
                         </div>
@@ -220,9 +223,9 @@ const formatTime = (time) => {
                     <div>
                         <el-space class="aside-header" alignment="center" style="width: 100%;">
                             <el-text class="aside-title">
-                                特色课程
+                                学科建设
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/401')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
@@ -230,7 +233,7 @@ const formatTime = (time) => {
                     <el-carousel :interval="4000" type="card" height="300px">
                         <el-carousel-item v-for="(subject, index) in truncatedsubjectData" :key="index">
                             <div class="card-container">
-                                <el-card class="profile-card" @click="() => handleClick('')" shadow="hover">
+                                <el-card class="profile-card" @click="() => handleClick('/discipline_con/dc/401/details/'+subject.articleId)" shadow="hover">
                                     <div class="profile-content">
                                         <img :src="getImageSrc(subject.articleCover)" class="profile-image"
                                              alt="Profile Image"/>
@@ -261,7 +264,7 @@ const formatTime = (time) => {
                             <el-text class="aside-title">
                                 办学成果
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/405')">更多 +</el-button>
                         </el-space>
                     </div>
                 </el-col>
@@ -272,7 +275,7 @@ const formatTime = (time) => {
                                     :key="rowIndex"
                                     style="margin-top: 30px;">
                                 <el-col :span="6" v-for="(result, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card2" @click="() => handleClick('')">
+                                    <el-card class="profile-card2" @click="() => handleClick('/discipline_con/dc/405/details/'+result.articleId)">
                                         <div class="profile-content">
                                             <!--                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>-->
                                             <div class="profile-text">
@@ -281,7 +284,7 @@ const formatTime = (time) => {
                                                 </div>
                                                 <div class="card-info">
                                                     <span>{{
-                                                            truncateDescription(result.articleDescription, 100, '...')
+                                                            truncateDescription(result.articleDescription, 70, '...')
                                                         }}</span>
                                                 </div>
                                             </div>
@@ -382,7 +385,7 @@ const formatTime = (time) => {
 }
 
 .news-list {
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: auto;
 }
 

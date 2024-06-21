@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import router from "@/router";
 const { currentRoute } = useRouter();
@@ -8,11 +8,12 @@ const { currentRoute } = useRouter();
 // 声明一个异步函数
 import { articleListService } from "@/api/article.js";
 
-const detail = ref({
-  articleTitle: '二十大专题学习',
+const details = ref({
+  articleTitle: '十年成果奖',
   createTime: '2024-06-15 22:54:51',
   articleContent: '内容'
 });
+
 
 // 获取通过动态参数articleType查询文章
 const article = async () => {
@@ -23,7 +24,7 @@ const article = async () => {
   };
 
   let result = await articleListService(params);
-  detail.value = result.rows[0];
+  details.value = result.data.rows[0];
 };
 
 watch(
@@ -36,16 +37,13 @@ watch(
 </script>
 
 <template>
-  <h1 class="title">{{ detail.articleTitle }}</h1>
+  <h1 class="title">{{ details.articleTitle }}</h1>
   <div class="time">
-    <span>{{ detail.createTime }}</span>
+    <span>{{ details.createTime }}</span>
   </div>
-  
-  <div class="content">
-    {{ detail.articleContent }}
-  </div>
-</template>
 
+  <div class="content" v-html="details.articleContent"></div>
+</template>
 
 <style lang="scss" scoped>
   .title {

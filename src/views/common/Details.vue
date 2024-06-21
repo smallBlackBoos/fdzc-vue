@@ -4,33 +4,36 @@ import router from "@/router";
 
 // 发送请求通过动态参数的id
 // 声明一个异步函数
-import { articleService } from "@/api/article.js";
+import { articleInfoService } from "@/api/article.js";
 
-const detail = ref({
+const details = ref({
   articleTitle: '标题',
   createTime: '2024-06-15 22:54:51',
   articleContent: '内容'
 });
 
 // 获取通过动态参数id查询文章
-const article = async () => {
-  let articleType = router.currentRoute.value.params.id;
-  let result = await articleService(articleType);
-  detail.value = result;
+const articleInfo = async () => {
+  let id = router.currentRoute.value.params.id;
+  let result = await articleInfoService(id);
+  details.value = result.data.data;
+  console.log(details.value)
 };
 
-article();
+articleInfo();
 </script>
 
 <template>
-  <h1 class="title">{{ detail.articleTitle }}</h1>
+  <h1 class="title">{{ details.articleTitle }}</h1>
   <div class="time">
-    <span>{{ detail.createTime }}</span>
+    <span>{{ details.createTime }}</span>
   </div>
   
-  <div class="content">
-    {{ detail.articleContent }}
-  </div>
+  <!-- <div class="content">
+    {{ details.articleContent }}
+  </div> -->
+
+  <div class="content" v-html="details.articleContent"></div>
 </template>
 
 <style lang="scss" scoped>
