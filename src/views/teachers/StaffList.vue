@@ -70,7 +70,7 @@ li {
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
-  font-size: 14px;
+  font-size: 16px;
 
   li {
     padding: 0.2rem 0;
