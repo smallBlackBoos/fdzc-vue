@@ -3,29 +3,62 @@ import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
 
 // 轮播大图数组
-const carouselItems = ref([]);
+const carouselItems = ref([{
+    articleId: 297,
+    articleTitle: "张莹",
+    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
+    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
+    articleType: "501"
+}]);
 //新闻公告
-const newsItems = ref([])
+const newsItems = ref([{
+    articleTitle: "张莹",
+    articleId: 297,
+    createTime: "2024-06-21 02:34:30",
+    articleDescription: "",
+    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
+    articleType: "501"
+}])
 //名师荟萃
-const teacherData = ref([]);
+const teacherData = ref([{
+    articleId: 297,
+    articleTitle: "张莹",
+    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
+    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
+    articleType: "501"
+}]);
 //特色课程
-const subjectData = ref([]);
+const subjectData = ref([{
+    articleId: 297,
+    articleTitle: "张莹",
+    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
+    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
+    articleType: "501"
+}]);
 //办学成果
-const ResultData = ref([]);
+const ResultData = ref([{
+    articleId: 297,
+    articleTitle: "张莹",
+    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
+    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
+    articleType: "501"
+}]);
 
-// 声明一个异步的函数
 import {
-    IndexListService,
-} from "@/api/index.js";
-import {
-    articleInfoService, articleTypeListService
+    articleListService
 } from "@/api/article.js";
 
 // 定义 IndexList 异步方法
 // 轮播大图数组
+// 获取通过动态参数articleType查询文章
 const carouselList = async () => {
     try {
-        let result = await articleTypeListService(100);
+        let params = {
+            pageNum: 1,
+            pageSize: 5,
+            articleType: 100,
+        };
+        let result = await articleListService(params);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         carouselItems.value = result.data.rows;
         console.log(carouselItems.value);
@@ -37,7 +70,12 @@ carouselList();
 //新闻公告
 const newsList = async () => {
     try {
-        let result = await articleTypeListService(201);
+        let params = {
+            pageNum: 1,
+            pageSize: 6,
+            articleType: 201,
+        };
+        let result = await articleListService(params);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         newsItems.value = result.data.rows;
         console.log(newsItems.value)
@@ -46,11 +84,16 @@ const newsList = async () => {
     }
 }
 newsList();
-const truncatednewsListData = computed(() => newsItems.value.slice(0, 6));
+
 //名师荟萃
 const teacherList = async () => {
     try {
-        let result = await articleTypeListService(501);
+        let params = {
+            pageNum: 1,
+            pageSize: 4,
+            articleType: 501,
+        };
+        let result = await articleListService(params);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         teacherData.value = result.data.rows;
         console.log(teacherData.value);
@@ -59,12 +102,16 @@ const teacherList = async () => {
     }
 }
 teacherList();
-const truncatedteacherData = computed(() => teacherData.value.slice(0, 4));
 
 //特色课程
 const subjectList = async () => {
     try {
-        let result = await articleTypeListService(401);
+        let params = {
+            pageNum: 1,
+            pageSize: 5,
+            articleType: 401,
+        };
+        let result = await articleListService(params);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         subjectData.value = result.data.rows;
         console.log(subjectData.value);
@@ -73,12 +120,16 @@ const subjectList = async () => {
     }
 }
 subjectList();
-const truncatedsubjectData = computed(() => subjectData.value.slice(0, 5));
 
 //办学成果
 const resultList = async () => {
     try {
-        let result = await articleTypeListService(405);
+        let params = {
+            pageNum: 1,
+            pageSize: 4,
+            articleType: 405,
+        };
+        let result = await articleListService(params);
         // 假设 carouselItems 是一个响应式变量，例如 Vue 中的 ref
         ResultData.value = result.data.rows;
         console.log(ResultData.value);
@@ -87,8 +138,6 @@ const resultList = async () => {
     }
 }
 resultList();
-const truncatedResultData = computed(() => ResultData.value.slice(0, 4));
-
 
 
 //路由跳转
@@ -162,17 +211,20 @@ const formatTime = (time) => {
                                 <el-text class="aside-title">
                                     名师荟萃
                                 </el-text>
-                                <el-button type="text" class="more-button" @click="handleClick('/teachers/t/501')">更多 +</el-button>
+                                <el-button type="text" class="more-button" @click="handleClick('/teachers/t/501')">更多
+                                    +
+                                </el-button>
                             </el-space>
                         </div>
                     </el-col>
                     <el-col>
                         <div class="card-container">
-                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows(truncatedteacherData,2)"
+                            <el-row :gutter="30" v-for="(row, rowIndex) in getRows(teacherData,2)"
                                     :key="rowIndex"
                                     style="margin-top: 30px;">
                                 <el-col :span="12" v-for="(teacher, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card" @click="() => handleClick('/teachers/t/501/details/'+ teacher.articleId)">
+                                    <el-card class="profile-card"
+                                             @click="() => handleClick('/teachers/t/501/details/'+ teacher.articleId)">
                                         <div class="profile-content">
                                             <img :src="getImageSrc(teacher.articleCover)" class="profile-image"
                                                  alt="Profile Image"/>
@@ -207,7 +259,8 @@ const formatTime = (time) => {
                         </el-space>
                     </div>
                     <div class="news-list">
-                        <div class="news-item" v-for="news in truncatednewsListData" :key="news.id" @click="() => handleClick('/news/n/202/details/'+ news.articleId)">
+                        <div class="news-item" v-for="news in newsItems" :key="news.articleId"
+                             @click="() => handleClick('/news/n/202/details/'+ news.articleId)">
                             <span class="news-time">{{ formatTime(news.createTime) }}</span>
                             <span class="news-title">{{ truncateDescription(news.articleTitle, 17, '...') }}</span>
                         </div>
@@ -225,15 +278,19 @@ const formatTime = (time) => {
                             <el-text class="aside-title">
                                 学科建设
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/401')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/401')">更多
+                                +
+                            </el-button>
                         </el-space>
                     </div>
                 </el-col>
                 <el-col style="margin-top: 30px">
                     <el-carousel :interval="4000" type="card" height="300px">
-                        <el-carousel-item v-for="(subject, index) in truncatedsubjectData" :key="index">
+                        <el-carousel-item v-for="(subject, index) in subjectData" :key="index">
                             <div class="card-container">
-                                <el-card class="profile-card" @click="() => handleClick('/discipline_con/dc/401/details/'+subject.articleId)" shadow="hover">
+                                <el-card class="profile-card"
+                                         @click="() => handleClick('/discipline_con/dc/401/details/'+subject.articleId)"
+                                         shadow="hover">
                                     <div class="profile-content">
                                         <img :src="getImageSrc(subject.articleCover)" class="profile-image"
                                              alt="Profile Image"/>
@@ -264,18 +321,21 @@ const formatTime = (time) => {
                             <el-text class="aside-title">
                                 办学成果
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/405')">更多 +</el-button>
+                            <el-button type="text" class="more-button" @click="handleClick('/discipline_con/dc/405')">更多
+                                +
+                            </el-button>
                         </el-space>
                     </div>
                 </el-col>
                 <el-container>
                     <el-col>
                         <div class="card-container">
-                            <el-row :gutter="10" v-for="(row, rowIndex) in getRows(truncatedResultData, 4)"
+                            <el-row :gutter="10" v-for="(row, rowIndex) in getRows(ResultData, 4)"
                                     :key="rowIndex"
                                     style="margin-top: 30px;">
                                 <el-col :span="6" v-for="(result, colIndex) in row" :key="colIndex">
-                                    <el-card class="profile-card2" @click="() => handleClick('/discipline_con/dc/405/details/'+result.articleId)">
+                                    <el-card class="profile-card2"
+                                             @click="() => handleClick('/discipline_con/dc/405/details/'+result.articleId)">
                                         <div class="profile-content">
                                             <!--                                            <img :src="teacher.image" class="profile-image" alt="Profile Image"/>-->
                                             <div class="profile-text">

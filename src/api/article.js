@@ -5,6 +5,8 @@ export const articleTypeListService = (articleType) => {
     return request.get('/article/list?articleType='+articleType)
 }
 
+
+
 //查询具体内容
 export const articleInfoService = (articleId) => {
     return request.get(`/article/${articleId}`)
