@@ -132,9 +132,9 @@ const routes = [
                     { path: 'sg/:articleType', component: List },                   // 文章列表
                     { path: 'sg/:articleType/details/:id', component: Details },    // 文章详情
                 ]
-            }
+            },
         ]
-    },
+    }
 ]
 
 // 创建路由器
