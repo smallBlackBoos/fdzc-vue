@@ -57,7 +57,6 @@ function getOffsetTop(element) {
 
 onMounted(() => {
     window.addEventListener("scroll", handleScroll);
-
     let navBar = document.querySelector('.el-menu');    // 获取导航条
     menu.value = getOffsetTop(navBar);  // 得到导航条距离文档顶部的位置
 });

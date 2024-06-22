@@ -146,11 +146,14 @@ const router = createRouter({
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-    // 在跳转路由之前执行返回顶部操作
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    // 判断是否是首页
+    if (to.path === '/index/info') {
+        // 在跳转路由之前执行返回顶部操作
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 如果需要平滑滚动，可以取消注释
+        });
+    }
     next(); // 继续导航
 });
 
