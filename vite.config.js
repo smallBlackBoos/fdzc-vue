@@ -34,7 +34,6 @@ export default defineConfig({
             }
         }
     },
-    base: '/fdzc-vue/' // 在生产环境中设置公共路径
 })
 
 
