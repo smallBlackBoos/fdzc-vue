@@ -8,7 +8,9 @@ var articleType = null;
 const href = ref("");
 const currentPage = ref(1);
 const pageSize = ref(10);
-const showType = ref();
+
+let needTimeArticleType = ['201', '202'];   // 需要时间的文章类型
+const showTime = ref(false);                // 默认不显示时间
 // const info = ref({
 //   total: 80,
 //   rows: [
@@ -53,9 +55,16 @@ watch(
   (toRoute, fromRoute) => {
     // http://127.0.0.1:5173/discipline_con/dc/2/details/1
     articleType = router.currentRoute.value.params.articleType; // 获取路径参数（文章类型）
-    
     href.value = router.currentRoute.value.fullPath + "/details/";
-    showType.value = articleType;
+
+    // 判断当前文章是否需要展示时间
+    if (needTimeArticleType.indexOf(articleType) == -1) { // 检查articleType在数组needTimeArticleType中是否存在
+      // 元素在 needTimeArticleType 不存在（即无需时间）
+      showTime.value = false;
+    } else {
+      // 元素在 needTimeArticleType 存在（即需时间）
+      showTime.value = true;
+    }
 
     let params = {
       pageNum: currentPage.value,
@@ -74,7 +83,7 @@ watch(
     <div class="news-item" v-for="news in info.rows" :key="news.articleId">
       <!-- <a href="/discipline_con/details/1" class="news-title">{{ news.title }}</a> -->
       <a :href="href + news.articleId" class="news-title">{{ news.articleTitle }}</a>
-      <span class="news-time">{{ news.createTime }}</span>
+      <span class="news-time" v-if="showTime">{{ news.createTime }}</span>
     </div>
   </div>
 
