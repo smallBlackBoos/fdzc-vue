@@ -17,15 +17,11 @@ const menuStyle = ref({
   textColor: '#287FB9',
   backgroundColor: '#fff',
 });  
-
 const scrollToTop = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
 };
 
 const handleScroll = () => {
-  // showBackToTop.value = window.scrollY > menu.value;
-  // isFixed.value = window.scrollY > menu.value;
-
   if (window.scrollY > menu.value) {
     showBackToTop.value = true;
     isFixed.value = true; // 开启导航条吸顶效果
@@ -389,11 +385,11 @@ const goToWebsite = (website) => {
 
 // 导航栏吸顶效果
 .fixed-menu {  
-    position: fixed;  
-    top: 0;  
-    left: 0;  
-    width: 100%;  
-    z-index: 1000; /* 确保菜单在其他内容之上 */  
-  }  
+  position: fixed;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  z-index: 1000; /* 确保菜单在其他内容之上 */  
+} 
 </style>
 
