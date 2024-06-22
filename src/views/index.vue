@@ -9,23 +9,18 @@ const handleSelect = (key: string) => {
 const router = useRouter();
 // 返回顶部
 const showBackToTop = ref(false);
-const isFixed = ref(false);  // 默认关闭吸顶效果
-// const fixedName = ref(null);
+const isFixed = ref(false); // 默认关闭吸顶效果
 const menu = ref(0);        // 导航条距离文档顶部的位置
 // 导航条样式（默认样式为白底蓝字）
 const menuStyle = ref({
     textColor: '#287FB9',
     backgroundColor: '#fff',
 });
-
 const scrollToTop = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
 };
 
 const handleScroll = () => {
-    // showBackToTop.value = window.scrollY > menu.value;
-    // isFixed.value = window.scrollY > menu.value;
-
     if (window.scrollY > menu.value) {
         showBackToTop.value = true;
         isFixed.value = true; // 开启导航条吸顶效果
@@ -89,7 +84,6 @@ const goToWebsite = (website) => {
                                 class="header-search"
                         />
                     </el-col>
-                    <img src="../assets/word.jpg" alt="Logo" class="header-image"/>
                 </el-row>
             </el-header>
             <!-- Menu -->

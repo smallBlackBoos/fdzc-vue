@@ -8,6 +8,8 @@ const { currentRoute } = useRouter();
 // 声明一个异步函数
 import { articleListService } from "@/api/article.js";
 
+let needTimeArticleType = ['201', '202'];   // 需要时间的文章类型
+const showTime = ref(false);            // 默认不显示时间
 const details = ref({
   articleTitle: '十年成果奖',
   createTime: '2024-06-15 22:54:51',
@@ -25,6 +27,15 @@ const article = async () => {
 
   let result = await articleListService(params);
   details.value = result.data.rows[0];
+
+  // 判断当前文章是否需要展示时间
+  if (needTimeArticleType.indexOf(articleType) == -1) { // 检查articleType在数组needTimeArticleType中是否存在
+    // 元素在 needTimeArticleType 不存在（即无需时间）
+    showTime.value = false;
+  } else {
+    // 元素在 needTimeArticleType 存在（即需时间）
+    showTime.value = true;
+  }
 };
 
 watch(
@@ -37,11 +48,15 @@ watch(
 </script>
 
 <template>
+  <!-- 标题 -->
   <h1 class="title">{{ details.articleTitle }}</h1>
+
+  <!-- 时间 -->
   <div class="time">
-    <span>{{ details.createTime }}</span>
+    <span v-if="showTime">{{ details.createTime }}</span>
   </div>
 
+  <!-- 内容 -->
   <div class="content" v-html="details.articleContent"></div>
 </template>
 
