@@ -17,15 +17,29 @@ const href = ref("");
 //   { id: "6", name: "数字媒体技术专业" },
 //   { id: "7", name: "计算机工程系概要" },
 // ]);
-const staff = ref([]); // 专业信息
+const staff = ref([]); // 教职工信息
+const total = ref(0); // 教职工总人数
 
 // 声明一个异步函数
-import { articleTypeListService } from "@/api/article.js";
+import { 
+  articleTypeListService,
+  articleListService 
+} from "@/api/article.js";
+
 // 获取通过动态参数articleType查询分类
 const articleTypeList = async (articleType) => {
   let result = await articleTypeListService(articleType);
+  total.value = result.data.total;  // 获取教职工总数
+
+  let params = {
+    pageNum: 1,
+    pageSize: total.value,   // 分页大小
+    articleType: articleType,   // 文章类型
+  };
+  result = await articleListService(params);  // 获取教职工列表
   staff.value = result.data;
-  console.log(staff.value);
+
+  console.log(total.value);
 };
 
 // dept/speciality/details/:id
@@ -35,7 +49,7 @@ watch(
   (toRoute, fromRoute) => {
     articleType = router.currentRoute.value.params.articleType; // 获取路径参数（文章类型）
     href.value = router.currentRoute.value.fullPath + "/details/";
-    articleTypeList(articleType); // 获取教师列表
+    articleTypeList(articleType); // 获取教职工列表
   },
   { immediate: true } // 立即执行一次回调函数
 );
