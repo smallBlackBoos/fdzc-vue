@@ -5,43 +5,42 @@ import {useRouter} from "vue-router";
 // 轮播大图数组
 const carouselItems = ref([{
     articleId: 297,
-    articleTitle: "张莹",
-    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
-    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
-    articleType: "501"
+    articleTitle: "",
+    articleDescription: "",
+    articleCover: "",
+    articleType: ""
 }]);
 //新闻公告
 const newsItems = ref([{
-    articleTitle: "张莹",
     articleId: 297,
-    createTime: "2024-06-21 02:34:30",
+    articleTitle: "",
     articleDescription: "",
-    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
-    articleType: "501"
+    articleCover: "",
+    articleType: ""
 }])
 //名师荟萃
 const teacherData = ref([{
     articleId: 297,
-    articleTitle: "张莹",
-    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
-    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
-    articleType: "501"
+    articleTitle: "",
+    articleDescription: "",
+    articleCover: "",
+    articleType: ""
 }]);
 //特色课程
 const subjectData = ref([{
     articleId: 297,
-    articleTitle: "张莹",
-    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
-    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
-    articleType: "501"
+    articleTitle: "",
+    articleDescription: "",
+    articleCover: "",
+    articleType: ""
 }]);
 //办学成果
 const ResultData = ref([{
     articleId: 297,
-    articleTitle: "张莹",
-    articleDescription: "1986年毕业于南京大学计算机软件专业，获理学学士学位；1989年毕业于厦门大学计算机软件专业，获工学硕士学位。长期从事计算机教学与科研工作，主持或参加多项省级教研课题和科研项目，发表学术论文20余篇，主编或参编并正式出版计算机教材10余部。",
-    articleCover: "/profile/upload/2024/06/21/7_20240621023342A129.jpg",
-    articleType: "501"
+    articleTitle: "",
+    articleDescription: "",
+    articleCover: "",
+    articleType: ""
 }]);
 
 import {
@@ -254,7 +253,7 @@ const formatTime = (time) => {
                             <el-text class="aside-title">
                                 通知公告
                             </el-text>
-                            <el-button type="text" class="more-button" @click="handleClick('/news/n/202')">更多 +
+                            <el-button type="text" class="more-button" @click="handleClick('/news/n/201')">更多 +
                             </el-button>
                         </el-space>
                     </div>
