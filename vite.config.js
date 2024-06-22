@@ -33,8 +33,7 @@ export default defineConfig({
                 rewrite: (path) => path.replace(/^\/api/, '')//api替换为空字符串
             }
         }
-    },
-    base: '/fdzc-vue/' // 在生产环境中设置公共路径
+    }
 })
 
 
