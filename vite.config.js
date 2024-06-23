@@ -33,7 +33,7 @@ export default defineConfig({
                 rewrite: (path) => path.replace(/^\/api/, '')//api替换为空字符串
             }
         }
-    },
+    }
 })
 
 

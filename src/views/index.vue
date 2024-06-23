@@ -84,6 +84,7 @@ const goToWebsite = (website) => {
                                 class="header-search"
                         />
                     </el-col>
+                    <img src="../assets/word.jpg" alt="Logo" class="header-image"/>
                 </el-row>
             </el-header>
             <!-- Menu -->
